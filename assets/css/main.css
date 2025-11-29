@@ -30,8 +30,19 @@ footer, header, hgroup, menu, nav, section {
 	display: block;}
 
 body {
+	height: 100%;
 	line-height: 1;
+	padding-top: 3.5em;
+	background: linear-gradient(
+			to bottom,
+			#8C42FF 0%,
+			#5A2A82 40%,
+			#2A0A3B 100%
+	) !important;
+	background-attachment: fixed !important;
+	color: white;
 }
+
 
 ol, ul {
 	list-style: none;
@@ -74,18 +85,6 @@ input, select, textarea {
 
 /* Basic */
 
-html, body {
-	height: 100%;
-	background: linear-gradient(
-			to bottom,
-			#8C42FF 0%,
-			#5A2A82 40%,
-			#2A0A3B 100%
-	);
-	background-attachment: fixed;
-	color: white;
-}
-
 .wrapper {
 	background: transparent !important;
 }
@@ -99,9 +98,6 @@ html {
 		box-sizing: inherit;
 	}
 
-	body {
-		padding-top: 3.5em;
-	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
