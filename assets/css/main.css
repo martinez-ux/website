@@ -2500,3 +2500,13 @@ html {
 					}
 
 	}
+/* override wrapper backgrounds for global gradient */
+.wrapper,
+.wrapper.style1,
+.wrapper.style2,
+.wrapper.style3,
+.wrapper.style4 {
+	background: transparent !important;
+	background-image: none !important;
+	box-shadow: none !important;
+}
