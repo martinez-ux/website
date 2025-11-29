@@ -74,7 +74,24 @@ input, select, textarea {
 
 /* Basic */
 
-	html {
+html, body {
+	height: 100%;
+	background: linear-gradient(
+			to bottom,
+			#8C42FF 0%,
+			#5A2A82 40%,
+			#2A0A3B 100%
+	);
+	background-attachment: fixed;
+	color: white;
+}
+
+.wrapper {
+	background: transparent !important;
+}
+
+
+html {
 		box-sizing: border-box;
 	}
 
@@ -150,7 +167,7 @@ input, select, textarea {
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #3e3e3e;
+		color: black;
 		margin: 0 0 0.75em 0;
 	}
 
@@ -174,6 +191,7 @@ input, select, textarea {
 		}
 
 	h2 {
+		color: white;
 		font-size: 2em;
 		letter-spacing: -0.015em;
 	}
@@ -1665,10 +1683,7 @@ input, select, textarea {
 	input[type="reset"],
 	button,
 	.button {
-		background-image: url("images/bg.png"), -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
-		background-image: url("images/bg.png"), -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
-		background-image: url("images/bg.png"), -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
-		background-image: url("images/bg.png"), linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+
 		-moz-transition: background-color .2s ease-in-out;
 		-webkit-transition: background-color .2s ease-in-out;
 		-ms-transition: background-color .2s ease-in-out;
@@ -1686,7 +1701,7 @@ input, select, textarea {
 		text-shadow: -1px -1px 0.5px rgba(0, 0, 0, 0.5);
 		overflow: hidden;
 		box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5), inset 0px 2px 1px 0px rgba(255, 255, 255, 0.75);
-		background-color: #43B3E0;
+		background-color: #30D5C8;
 		padding: 1em 2.35em 1em 2.35em;
 		font-size: 1.1em;
 		max-width: 24em;
@@ -1697,7 +1712,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #43bff0;
+			background-color: #FFD86B;
 			color: #fff !important;
 		}
 
@@ -2009,7 +2024,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style4 {
-			background-color: #303030;
+			background: white;
 			color: #999;
 			text-shadow: -1px -1px 0px #181818;
 		}
@@ -2023,14 +2038,14 @@ input, select, textarea {
 			.wrapper.style4 form select,
 			.wrapper.style4 form textarea {
 				border: none;
-				background: #282828;
+				background: white;
 			}
 
 				.wrapper.style4 form input[type=text]:focus,
 				.wrapper.style4 form input[type=password]:focus,
 				.wrapper.style4 form select:focus,
 				.wrapper.style4 form textarea:focus {
-					background: #252525;
+					background: white;
 				}
 
 /* Nav */
@@ -2099,14 +2114,54 @@ input, select, textarea {
 				}
 
 /* Articles */
+.icon-gradient {
+	background: linear-gradient(90deg, #a855f7, #ec4899, #8b5cf6);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: glow 3s ease infinite;
+}
+
+@keyframes glow {
+	0% { filter: drop-shadow(0 0 5px #a855f7); }
+	50% { filter: drop-shadow(0 0 12px #ec4899); }
+	100% { filter: drop-shadow(0 0 5px #8b5cf6); }
+}
+
+
+	.glow-effect {
+		background: linear-gradient(
+				90deg,
+				#fff 0%,
+				#c285ff 50%,
+				#fff 100%
+		);
+		background-size: 200% 100%;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		animation: glowMove 3s infinite linear;
+	}
+
+	@keyframes glowMove {
+		0% {
+			background-position: 200% 0;
+		}
+		100% {
+			background-position: -200% 0;
+		}
+	}
+
 
 	body > article {
 		margin-bottom: 0;
+
 	}
+
 
 	#top {
 		padding: 10em 0 10em 0;
 		text-align: left;
+		color: white;
 	}
 
 		#top .image {
@@ -2122,6 +2177,7 @@ input, select, textarea {
 
 		#top h1 {
 			margin-top: 0.35em;
+			color: #F5F5F5;
 		}
 
 		#top p {
@@ -2136,6 +2192,7 @@ input, select, textarea {
 	#contact footer {
 		font-size: 0.9em;
 	}
+
 
 /* Copyright */
 
