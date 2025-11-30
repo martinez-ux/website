@@ -1944,17 +1944,23 @@ html {
 				margin-bottom: 0.5em;
 			}
 
-		.box.style2 h3 {
-			margin-bottom: 0.25em;
-		}
+			.box.style2 {
+				padding: 0 0 2em 0;
+				overflow: hidden;
+			}
 
-		.box.style2 .image {
-			position: relative;
-			left: 2em;
-			top: 2em;
-			margin: -4em 0 4em -4em;
-			width: auto;
-		}
+			.box.style2 .image {
+				margin: 0;
+				position: relative;
+				left: 0;
+				top: 0;
+			}
+			.box.style2 .image img {
+				width: 100%;
+				height: 220px;
+				object-fit: cover;
+				display: block;
+			}
 
 /* Icons */
 
