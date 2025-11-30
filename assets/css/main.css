@@ -23,6 +23,7 @@ section, summary, time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
+
 	vertical-align: baseline;}
 
 article, aside, details, figcaption, figure,
@@ -2011,21 +2012,26 @@ html {
 
 		.wrapper.style2 {
 			background-color: #fafafa;
-			text-shadow: 1px 1px 0px #fff;
+			p {
+				color: black;
+			}
+			footer p {
+				color: white;
+			}
 		}
 
 		.wrapper.style3 {
 			background-color: #f4f4f4;
-			text-shadow: 1px 1px 0px #fff;
+			/*text-shadow: 1px 1px 0px #fff;*/
 		}
 
 		.wrapper.style4 {
 			background: white;
-			color: #999;
+			color: white;
 			text-shadow: -1px -1px 0px #181818;
 		}
 
-			.wrapper.style4 h1, .wrapper.style4 h2, .wrapper.style4 h3, .wrapper.style4 h4, .wrapper.style4 h5, .wrapper.style4 h6 {
+			.wrapper.style4 h1, .wrapper.style4 h2, .wrapper.style4 h3, .wrapper.style4 h4, .wrapper.style4 h5, .wrapper.style4 h6, .wrapper.style3 header{
 				color: #fff;
 			}
 
@@ -2496,13 +2502,74 @@ html {
 					}
 
 	}
-/* override wrapper backgrounds for global gradient */
-.wrapper,
-.wrapper.style1,
-.wrapper.style2,
-.wrapper.style3,
-.wrapper.style4 {
-	background: transparent !important;
-	background-image: none !important;
-	box-shadow: none !important;
+		/* override wrapper backgrounds for global gradient */
+		.wrapper,
+		.wrapper.style1,
+		.wrapper.style2,
+		.wrapper.style3,
+		.wrapper.style4 {
+			background: transparent !important;
+			background-image: none !important;
+			box-shadow: none !important;
+		}
+		/*Fun stuff*/
+.eye {
+	width: 220px;
+	height: 220px;
+	background: #fff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 0 25px rgba(0,0,0,0.25) inset;
 }
+
+/* Eyelid */
+.eyelid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000; /* eyelid color — can be skin-toned if you want */
+	border-radius: 50%;
+	transform-origin: top;
+	transform: scaleY(0);
+	z-index: 10;
+	animation: blink 10s infinite; /* blinks every 5 seconds */
+}
+
+@keyframes blink {
+	0%, 4%, 100% {
+		transform: scaleY(0);   /* open */
+	}
+	2% {
+		transform: scaleY(1);   /* fully closed */
+	}
+}
+
+/* Pupil */
+.pupil {
+	width: 120px;
+	height: 120px;
+	background: radial-gradient(circle at 30% 30%, #000, #111);
+	border-radius: 50%;
+	position: relative;
+	transition: transform 0.03s linear;
+	z-index: 1;
+}
+
+/* Highlight dot */
+.highlight {
+	width: 40px;
+	height: 40px;
+	background: white;
+	border-radius: 50%;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+
