@@ -2592,3 +2592,82 @@ html {
 }
 
 
+.skills-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 20px;
+}
+
+.skill-badge {
+	padding: 8px 16px;
+	font-weight: 700;
+	border-radius: 20px;
+	font-size: 1em;
+	color: #5a2a00;
+	background: linear-gradient(120deg, #d4a017, #ffd86b, #fff2b2, #d4a017);
+	background-size: 300% 100%;
+	border: 2px solid #b8860b;
+	position: relative;
+	overflow: hidden;
+	text-shadow: 0 0 3px rgba(255,255,255,0.5);
+	box-shadow:
+			0 0 8px rgba(255, 215, 0, 0.4),
+			inset 0 0 4px rgba(255,255,255,0.6);
+
+	animation: goldSweep 10s linear infinite;
+}
+
+@keyframes goldSweep {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+.skill-badge:hover {
+	box-shadow:
+			0 0 15px rgba(255, 215, 0, 0.8),
+			inset 0 0 8px rgba(255,255,255,0.8);
+	transform: scale(1.05);
+}
+
+.skill-badge::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -50%;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(255,255,255,0.9),
+			transparent
+	);
+	transform: skewX(-20deg);
+	animation: sparkleRay 10s infinite;
+}
+
+/* The bright sparkle streak that sweeps across */
+@keyframes sparkleRay {
+	0%   { left: -60%; opacity: 0; }
+	30%  { opacity: 1; }
+	100% { left: 120%; opacity: 0; }
+}
+
+#top .email-tag {
+	font-size: 1em !important; /* force override */
+	color: #cccccc;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	opacity: 0.85;
+}
+#top header h1 {
+	margin-bottom: 0.25em !important; /* was ~0.75em */
+}
+
+
+
