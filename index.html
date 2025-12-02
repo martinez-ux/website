@@ -6,6 +6,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+		<script type="text/javascript"
+				src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+		</script>
+		<script type="text/javascript">
+			(function () {
+				emailjs.init({
+					publicKey: "_I6tXfMmRAUMAzImL"
+				});
+			})();
+		</script>
+
+
 	</head>
 	<body class="is-preload">
 
@@ -49,7 +61,6 @@
 								<span class="skill-badge">C#</span>
 								<span class="skill-badge">JavaScript</span>
 								<span class="skill-badge">Python</span>
-								<span class="skill-badge">Next.js</span>
 							</div>
 
 							</p>
@@ -109,16 +120,16 @@
 					<div class="row">
 						<div class="col-4 col-6-medium col-12-small">
 							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/lockanddoor.png" alt="" /></a>
-								<h3><a href="#">Prestige Lock & Door</a></h3>
+								<a class="image featured"><img src="images/lockanddoor.png" alt="" /></a>
+								<h3><a >Prestige Lock & Door</a></h3>
 								<p>Developed a web application that scans pdf documents using AI and returns the contents to make business decisions as part of a group project.</p>
 							</article>
 						</div>
 						<div class="col-4 col-6-medium col-12-small">
 							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/genshinproject.png" alt="" /></a>
-								<h3><a href="#">Genshin Impact Website</a></h3>
-								<p>Developed a website front and backend using python Fastapi and React Next.js. Project follows <strong>CRUD</strong>
+								<a class="image featured"><img src="images/genshinproject.png" alt="" /></a>
+								<h3><a >Genshin Impact Website</a></h3>
+								<p>Developed a web application's front and backend using python Fastapi and React Next.js. Project follows <strong>CRUD</strong>
 								   functionality and was made alongside fellow developer <a href="https://github.com/ChrisUdey">Chris Udey</a></p>
 							</article>
 						</div>
@@ -145,14 +156,15 @@
 <!--						</div>-->
 						<div class="col-4 col-6-medium col-12-small">
 							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/pic06.jpg" alt="" /></a>
-								<h3><a href="#">Sed amet ornare</a></h3>
-								<p>Ornare nulla proin odio consequat.</p>
+								<a class="image featured"><img src="images/COSA190project.png" alt="" /></a>
+								<h3><a >Card Game Website</a></h3>
+								<p>Created a game website that features <Strong>Twenty Total</Strong> and <Strong>Memory</Strong> games.
+								   This website appeals to kids by making math fun and awarding points on successful games.</p>
 							</article>
 						</div>
 					</div>
 					<footer>
-						<p>Got any questions for me?</p>
+						<p>Got any questions?</p>
 						<a href="#contact" class="button large scrolly">Get in touch with me</a>
 					</footer>
 				</div>
@@ -163,23 +175,24 @@
 				<div class="container medium">
 					<header>
 						<h2>Have me make stuff for you.</h2>
-						<p>Ornare nulla proin odio consequat sapien vestibulum ipsum.</p>
+						<p class="email-tag">I can be contacted at <a href="mailto:martinezlopez2110@saskpolytech.ca">
+						martinezlopez2110@saskpolytech.ca</a> or send me a message using the form below!</p>
 					</header>
 					<div class="row">
 						<div class="col-12">
-							<form method="post" action="#">
+							<form id="contact-form">
 								<div class="row">
 									<div class="col-6 col-12-small">
-										<input type="text" name="name" id="name" placeholder="Name" />
+										<input type="text" name="name" id="name" placeholder="Name" required />
 									</div>
 									<div class="col-6 col-12-small">
-										<input type="text" name="email" id="email" placeholder="Email" />
+										<input type="email" name="email" id="email" placeholder="Email" required />
 									</div>
 									<div class="col-12">
 										<input type="text" name="subject" id="subject" placeholder="Subject" />
 									</div>
 									<div class="col-12">
-										<textarea name="message" id="message" placeholder="Message"></textarea>
+										<textarea name="message" id="message" placeholder="Message" required></textarea>
 									</div>
 									<div class="col-12">
 										<ul class="actions">
@@ -189,6 +202,7 @@
 									</div>
 								</div>
 							</form>
+							<p id="form-status" style="color: #30D5C8; margin-top: 15px;"></p>
 						</div>
 						<div class="col-12">
 							<hr />
@@ -220,8 +234,8 @@
 						<ul id="copyright">
 							<li>Made using a miniport by <a href="http://twitter.com/ajlkn">AJ</a></li>
 							<li>released under the <a href="http://html5up.net/license">CCA license</a></li>
-							<li>Version 1.0.3</li>
-							<li>Last Updated 2025/11/29</li>
+							<li>Version 1.0.6</li>
+							<li>Last Updated 2025/12/01</li>
 
 						</ul>
 					</footer>
@@ -243,29 +257,58 @@
 					}
 				});
 			</script>
-		<script>
-			const eye = document.querySelector('.eye');
-			const pupil = document.querySelector('.pupil');
+			<script>
+				const eye = document.querySelector('.eye');
+				const pupil = document.querySelector('.pupil');
 
-			document.addEventListener('mousemove', (e) => {
-				const rect = eye.getBoundingClientRect();
-				const centerX = rect.left + rect.width / 2;
-				const centerY = rect.top + rect.height / 2;
+				document.addEventListener('mousemove', (e) => {
+					const rect = eye.getBoundingClientRect();
+					const centerX = rect.left + rect.width / 2;
+					const centerY = rect.top + rect.height / 2;
 
-				const dx = e.clientX - centerX;
-				const dy = e.clientY - centerY;
+					const dx = e.clientX - centerX;
+					const dy = e.clientY - centerY;
 
-				const angle = Math.atan2(dy, dx);
-				const maxMove = 35;
+					const angle = Math.atan2(dy, dx);
+					const maxMove = 35;
 
-				const moveX = Math.cos(angle) * maxMove;
-				const moveY = Math.sin(angle) * maxMove;
+					const moveX = Math.cos(angle) * maxMove;
+					const moveY = Math.sin(angle) * maxMove;
 
-				pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-			});
-		</script>
+					pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+				});
+			</script>
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					const form = document.getElementById("contact-form");
 
+					form.addEventListener("submit", function (e) {
+						e.preventDefault();
 
+						const params = {
+							from_name: document.getElementById("name").value,
+							from_email: document.getElementById("email").value,
+							subject: document.getElementById("subject").value,
+							message: document.getElementById("message").value,
+							time: new Date().toLocaleString()
+						};
 
+						emailjs
+								.send(
+										"service_hfz44t6",   // e.g. "service_123abc"
+										"template_dwtphcc",  // e.g. "template_xyz789"
+										params
+								)
+								.then(function (response) {
+									alert("Message sent successfully!");
+									form.reset();
+								})
+								.catch(function (error) {
+									console.error("EmailJS ERROR:", error);
+									alert("EmailJS error: " + (error.text || JSON.stringify(error)));
+								});
+					});
+				});
+			</script>
 	</body>
 </html>
