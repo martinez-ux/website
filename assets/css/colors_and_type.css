@@ -1,0 +1,235 @@
+/* ============================================================
+   Jorge Martinez — Design System
+   Colors + Typography Tokens
+   ============================================================
+   Sourced from the personal portfolio at github.com/martinez-ux/website.
+   The site's signature is a vertical purple gradient washed with
+   bright accents: cyan-turquoise on CTAs, gold on hover/badges,
+   and violet→magenta on iconography.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,600&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+
+:root {
+	/* ---------- Brand palette: Purple (signature gradient) ---------- */
+	--purple-100:  #E8D9FF;
+	--purple-200:  #C285FF;   /* glow accent inside white-text gradient */
+	--purple-300:  #A855F7;   /* icon-gradient anchor */
+	--purple-400:  #8C42FF;   /* gradient TOP */
+	--purple-500:  #5A2A82;   /* gradient MID */
+	--purple-600:  #3D1A5A;
+	--purple-700:  #2A0A3B;   /* gradient BOTTOM */
+	--purple-800:  #1A0626;
+
+	/* ---------- Brand palette: Gold (hover, awards, skill badges) ---------- */
+	--gold-100:    #FFF2B2;   /* sparkle highlight */
+	--gold-200:    #FFD86B;   /* primary gold — button :hover */
+	--gold-300:    #D4A017;   /* badge body */
+	--gold-400:    #B8860B;   /* badge border */
+	--gold-ink:    #5A2A00;   /* text on gold */
+
+	/* ---------- Brand palette: Cyan/Turquoise (primary CTA) ---------- */
+	--cyan-100:    #B6F2EC;
+	--cyan-200:    #43BFF0;   /* link :hover, focus ring */
+	--cyan-300:    #43B3E0;   /* link */
+	--cyan-400:    #30D5C8;   /* PRIMARY button bg + form-status */
+	--cyan-500:    #3BA8D3;   /* button :active */
+
+	/* ---------- Accent: Pink (icon gradient mid-stop) ---------- */
+	--pink-300:    #EC4899;
+	--violet-300:  #8B5CF6;
+
+	/* ---------- Neutrals ---------- */
+	--ink-1000:    #000000;   /* eyelid, deep accents */
+	--ink-900:     #181818;
+	--ink-800:     #282828;
+	--ink-700:     #3E3E3E;   /* body strong, headings on light */
+	--ink-600:     #484848;   /* nav active */
+	--ink-500:     #4F4F4F;   /* table head */
+	--ink-400:     #888888;   /* body copy on light */
+	--ink-300:     #BBBBBB;   /* form input ink */
+	--ink-200:     #CCCCCC;   /* email tag on dark */
+	--ink-100:     #DDDDDD;   /* form border */
+	--paper-300:   #EEEEEE;
+	--paper-200:   #F4F4F4;   /* wrapper.style3 */
+	--paper-100:   #FAFAFA;   /* wrapper.style2 */
+	--paper-050:   #F7F7FA;   /* nav bar */
+	--paper-000:   #FFFFFF;   /* card / wrapper.style1 */
+
+	/* ---------- Semantic surfaces ---------- */
+	--bg-page:        linear-gradient(to bottom, #8C42FF 0%, #5A2A82 40%, #2A0A3B 100%);
+	--bg-card:        #FFFFFF;
+	--bg-card-soft:   #FAFAFA;
+	--bg-nav:         #F7F7FA;
+	--bg-input:       #FFFFFF;
+
+	--fg-on-dark:     #FFFFFF;
+	--fg-on-dark-soft:#CCCCCC;
+	--fg-on-light:    #3E3E3E;
+	--fg-on-light-soft:#888888;
+	--fg-heading:     #000000;
+	--fg-heading-on-dark: #F5F5F5;
+
+	--border-line:    rgba(0, 0, 0, 0.15);
+	--border-input:   #DDDDDD;
+	--rule:           rgba(0, 0, 0, 0.35);
+
+	/* ---------- Brand gradients ---------- */
+	--grad-page:      linear-gradient(to bottom, #8C42FF 0%, #5A2A82 40%, #2A0A3B 100%);
+	--grad-icon:      linear-gradient(90deg, #A855F7, #EC4899, #8B5CF6);
+	--grad-glow-text: linear-gradient(90deg, #FFFFFF 0%, #C285FF 50%, #FFFFFF 100%);
+	--grad-gold:      linear-gradient(120deg, #D4A017, #FFD86B, #FFF2B2, #D4A017);
+
+	/* ---------- Elevation ---------- */
+	--shadow-card:    inset 0 0 0 1px rgba(0,0,0,0.15), 0 2px 3px 0 rgba(0,0,0,0.10);
+	--shadow-input:   inset 0 2px 3px 1px rgba(0,0,0,0.05), 0 1px 0 0 rgba(255,255,255,0.025);
+	--shadow-input-focus: inset 0 2px 5px 0 rgba(0,0,0,0.05), 0 1px 0 0 rgba(255,255,255,0.025), inset 0 0 2px 1px #43BFF0;
+	--shadow-button:  inset 0 0 0 1px rgba(0,0,0,0.5), inset 0 2px 1px 0 rgba(255,255,255,0.75);
+	--shadow-badge:   0 0 8px rgba(255, 215, 0, 0.4), inset 0 0 4px rgba(255,255,255,0.6);
+	--shadow-badge-hover: 0 0 15px rgba(255, 215, 0, 0.8), inset 0 0 8px rgba(255,255,255,0.8);
+	--shadow-eye:     inset 0 0 25px rgba(0,0,0,0.25);
+
+	/* ---------- Radii ---------- */
+	--radius-sm:   6px;     /* social tile */
+	--radius-md:   8px;     /* buttons, inputs, nav links */
+	--radius-pill: 20px;    /* skill badges */
+	--radius-full: 9999px;  /* avatar, eye */
+
+	/* ---------- Spacing scale (em-relative, matches site rhythm) ---------- */
+	--space-1: 0.25em;
+	--space-2: 0.5em;
+	--space-3: 0.75em;
+	--space-4: 1em;
+	--space-5: 1.5em;
+	--space-6: 2em;
+	--space-7: 3em;
+	--space-8: 5em;
+	--space-9: 8em;     /* wrapper vertical pad on desktop */
+
+	/* ---------- Motion ---------- */
+	--ease:        ease-in-out;
+	--dur-fast:    .2s;
+	--dur-glow:    3s;
+	--dur-blink:   10s;
+	--dur-sweep:   10s;
+
+	/* ---------- Typography: families ---------- */
+	--font-sans:   "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	--font-mono:   ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+	/* ---------- Type tokens (named like the site uses them) ---------- */
+	--type-body-size:     13pt;
+	--type-body-line:     1.85em;
+	--type-body-weight:   300;
+
+	--type-h1-size:       3.25em;
+	--type-h1-weight:     300;     /* light */
+	--type-h1-strong:     700;     /* the bold name */
+	--type-h1-tracking:   -0.025em;
+
+	--type-h2-size:       2em;
+	--type-h2-weight:     700;
+	--type-h2-tracking:   -0.015em;
+
+	--type-h3-size:       1.5em;
+	--type-h3-weight:     700;
+	--type-h3-tracking:   -0.015em;
+
+	--type-lead-size:     1.5em;     /* hero paragraph */
+	--type-lead-line:     1.75em;
+
+	--type-button-size:   1.1em;
+	--type-button-large:  1.5em;
+
+	--type-badge-size:    1em;
+	--type-badge-weight:  700;
+
+	--type-nav-weight:    600;
+}
+
+/* ============================================================
+   Semantic class shortcuts — lift a header/body straight onto
+   any element without re-deriving the rules.
+   ============================================================ */
+.t-h1 {
+	font-family: var(--font-sans);
+	font-size: var(--type-h1-size);
+	font-weight: var(--type-h1-weight);
+	letter-spacing: var(--type-h1-tracking);
+	line-height: 1.1;
+	margin: 0 0 0.5em;
+	color: var(--fg-heading-on-dark);
+}
+.t-h1 strong { font-weight: var(--type-h1-strong); }
+
+.t-h2 {
+	font-family: var(--font-sans);
+	font-size: var(--type-h2-size);
+	font-weight: var(--type-h2-weight);
+	letter-spacing: var(--type-h2-tracking);
+	color: var(--paper-000);
+	margin: 0 0 0.75em;
+}
+.t-h3 {
+	font-family: var(--font-sans);
+	font-size: var(--type-h3-size);
+	font-weight: var(--type-h3-weight);
+	letter-spacing: var(--type-h3-tracking);
+	color: var(--ink-1000);
+	margin: 0 0 0.75em;
+}
+.t-body {
+	font-family: var(--font-sans);
+	font-size: var(--type-body-size);
+	font-weight: var(--type-body-weight);
+	line-height: var(--type-body-line);
+	color: var(--ink-400);
+}
+.t-lead {
+	font-family: var(--font-sans);
+	font-size: var(--type-lead-size);
+	line-height: var(--type-lead-line);
+	font-weight: 300;
+	color: var(--fg-on-dark);
+}
+.t-meta {
+	font-family: var(--font-sans);
+	font-size: 1em;
+	color: var(--fg-on-dark-soft);
+	opacity: 0.85;
+}
+.t-link {
+	color: var(--cyan-300);
+	text-decoration: underline;
+	transition: color var(--dur-fast) var(--ease);
+}
+.t-link:hover { color: var(--cyan-200); }
+
+/* ---------- Glow text effect — used on the bold name in the hero ---------- */
+.glow-text {
+	background: var(--grad-glow-text);
+	background-size: 200% 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: glowMove 3s infinite linear;
+}
+@keyframes glowMove {
+	0%   { background-position:  200% 0; }
+	100% { background-position: -200% 0; }
+}
+
+/* ---------- Icon gradient — used on FA icons throughout ---------- */
+.icon-gradient {
+	background: var(--grad-icon);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: iconGlow var(--dur-glow) ease infinite;
+}
+@keyframes iconGlow {
+	0%   { filter: drop-shadow(0 0 5px  var(--purple-300)); }
+	50%  { filter: drop-shadow(0 0 12px var(--pink-300)); }
+	100% { filter: drop-shadow(0 0 5px  var(--violet-300)); }
+}

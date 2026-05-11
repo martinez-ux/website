@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jorge Martinez — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+	--ink-0:#0A0610;
+	--ink-1:#0F0918;
+	--ink-2:#171024;
+	--ink-3:#211632;
+	--ink-4:#2D1F44;
+	--line:rgba(255,255,255,0.08);
+	--line-strong:rgba(255,255,255,0.14);
+	--text:#F4F1FA;
+	--text-soft:#B6ADC9;
+	--text-mute:#7C7390;
+	--purple:#8C42FF;
+	--purple-soft:#A87EFF;
+	--purple-deep:#5A2A82;
+	--gold:#FFD86B;
+	--gold-deep:#D4A017;
+	--cyan:#30D5C8;
+	--cyan-deep:#1FA89C;
+	--pink:#EC4899;
+	--violet:#8B5CF6;
+	--grad-accent: linear-gradient(135deg, #A855F7 0%, #EC4899 50%, #FFD86B 100%);
+	--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: 'Geist Mono', ui-monospace, monospace;
+	--font-serif: 'Instrument Serif', Georgia, serif;
+	--rad-sm: 8px;
+	--rad-md: 14px;
+	--rad-lg: 22px;
+	--maxw: 1180px;
+	--ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+	background: var(--ink-0);
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+
+/* Atmospheric backdrop — three soft purple glows pinned and a faint grid */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -2;
+	background:
+		radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.28), transparent 60%),
+		radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.18), transparent 60%),
+		radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.10), transparent 60%);
+	pointer-events: none;
+}
+body::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background-image:
+		linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+	background-size: 56px 56px;
+	mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+	-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+	pointer-events: none;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--purple-soft); }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+/* ---------- Top nav ---------- */
+.nav {
+	position: sticky;
+	top: 14px;
+	z-index: 50;
+	margin: 14px auto 0;
+	max-width: calc(var(--maxw) - 56px);
+	padding: 10px 14px 10px 22px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 999px;
+	background: rgba(15, 9, 24, 0.6);
+	backdrop-filter: blur(20px) saturate(140%);
+	-webkit-backdrop-filter: blur(20px) saturate(140%);
+	border: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+.brand-mark {
+	width: 28px; height: 28px;
+	border-radius: 8px;
+	background: var(--grad-accent);
+	display: flex; align-items: center; justify-content: center;
+	color: #10071A;
+	font-weight: 800;
+	font-size: 13px;
+	letter-spacing: -0.02em;
+	box-shadow: 0 6px 16px -4px rgba(168, 126, 255, 0.6);
+}
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+	padding: 8px 14px;
+	border-radius: 999px;
+	font-size: 14px;
+	color: var(--text-soft);
+	transition: color .2s var(--ease), background .2s var(--ease);
+}
+.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.nav-cta {
+	padding: 9px 16px 9px 18px;
+	border-radius: 999px;
+	background: var(--text);
+	color: var(--ink-0) !important;
+	font-size: 14px;
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(255,255,255,0.4); }
+@media (max-width: 720px) { .nav-links { display: none; } }
+
+/* ---------- Hero ---------- */
+.hero { padding: 120px 0 100px; position: relative; }
+.hero-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 6px 14px 6px 8px;
+	border-radius: 999px;
+	background: rgba(255,255,255,0.04);
+	border: 1px solid var(--line);
+	font-size: 13px;
+	color: var(--text-soft);
+	font-family: var(--font-mono);
+	margin-bottom: 28px;
+}
+.hero-eyebrow::before {
+	content: "";
+	width: 8px; height: 8px; border-radius: 50%;
+	background: var(--cyan);
+	box-shadow: 0 0 12px var(--cyan);
+	animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: 0.5; transform: scale(0.85); } }
+
+.hero h1 {
+	font-family: var(--font-sans);
+	font-size: clamp(48px, 8vw, 96px);
+	line-height: 0.98;
+	letter-spacing: -0.04em;
+	font-weight: 600;
+	margin: 0 0 28px;
+	max-width: 14ch;
+}
+.hero h1 .accent {
+	font-family: var(--font-serif);
+	font-style: italic;
+	font-weight: 400;
+	background: var(--grad-accent);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	letter-spacing: -0.01em;
+}
+.hero-lede {
+	font-size: 20px;
+	line-height: 1.5;
+	color: var(--text-soft);
+	max-width: 56ch;
+	margin: 0 0 40px;
+}
+.hero-lede strong { color: var(--text); font-weight: 500; }
+
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 22px;
+	border-radius: 12px;
+	font-family: var(--font-sans);
+	font-size: 15px;
+	font-weight: 500;
+	letter-spacing: -0.005em;
+	cursor: pointer;
+	border: 0;
+	transition: transform .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+}
+.btn-primary {
+	background: var(--text);
+	color: var(--ink-0);
+	box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px -12px rgba(244,241,250,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 16px 40px -12px rgba(244,241,250,0.4); }
+.btn-ghost {
+	background: rgba(255,255,255,0.04);
+	color: var(--text);
+	border: 1px solid var(--line-strong);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+.btn .arrow { transition: transform .2s var(--ease); }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ---------- Hero meta strip ---------- */
+.hero-meta {
+	margin-top: 80px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0;
+	border-top: 1px solid var(--line);
+	border-bottom: 1px solid var(--line);
+}
+.hero-meta > div {
+	padding: 24px 0;
+	border-right: 1px solid var(--line);
+}
+.hero-meta > div:last-child { border-right: 0; }
+.hero-meta > div:not(:first-child) { padding-left: 24px; }
+.meta-label {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--text-mute);
+	margin-bottom: 8px;
+}
+.meta-value { font-size: 16px; color: var(--text); font-weight: 500; }
+@media (max-width: 720px) {
+	.hero-meta { grid-template-columns: 1fr 1fr; }
+	.hero-meta > div:nth-child(2) { border-right: 0; }
+	.hero-meta > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+
+/* ---------- Section header ---------- */
+.section { padding: 120px 0; }
+.section-head {
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 40px;
+	margin-bottom: 56px;
+	flex-wrap: wrap;
+}
+.section-tag {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	color: var(--purple-soft);
+	margin: 0 0 14px;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+.section-tag::before {
+	content: ""; width: 24px; height: 1px; background: var(--purple-soft);
+}
+.section h2 {
+	font-size: clamp(36px, 5vw, 56px);
+	line-height: 1.02;
+	letter-spacing: -0.03em;
+	font-weight: 500;
+	margin: 0;
+	max-width: 18ch;
+}
+.section h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--purple-soft); }
+.section-sub {
+	max-width: 36ch;
+	color: var(--text-soft);
+	font-size: 16px;
+	line-height: 1.55;
+	margin: 0;
+}
+
+/* ---------- Expertise grid ---------- */
+.expertise-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+@media (max-width: 880px) { .expertise-grid { grid-template-columns: 1fr; } }
+.exp-card {
+	padding: 32px 28px 30px;
+	background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+	border: 1px solid var(--line);
+	border-radius: var(--rad-lg);
+	position: relative;
+	overflow: hidden;
+	transition: transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+.exp-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+.exp-card .ico {
+	width: 44px; height: 44px;
+	border-radius: 12px;
+	display: flex; align-items: center; justify-content: center;
+	background: rgba(140, 66, 255, 0.12);
+	border: 1px solid rgba(168, 126, 255, 0.25);
+	color: var(--purple-soft);
+	font-size: 18px;
+	margin-bottom: 22px;
+}
+.exp-card h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin: 0 0 10px; }
+.exp-card p { font-size: 15px; line-height: 1.55; color: var(--text-soft); margin: 0; }
+.exp-card .tag-row { margin-top: 18px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--text-mute);
+	padding: 3px 8px;
+	border: 1px solid var(--line);
+	border-radius: 6px;
+}
+
+/* ---------- Stack ---------- */
+.stack {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 24px;
+}
+.stack-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 14px;
+	background: rgba(255,255,255,0.04);
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	color: var(--text-soft);
+	transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.stack-pill i { font-size: 14px; }
+.stack-pill:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--line-strong); }
+
+/* ---------- Projects ---------- */
+.projects-grid {
+	display: grid;
+	grid-template-columns: 1.2fr 1fr;
+	gap: 16px;
+}
+@media (max-width: 880px) { .projects-grid { grid-template-columns: 1fr; } }
+.project {
+	display: flex;
+	flex-direction: column;
+	background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+	border: 1px solid var(--line);
+	border-radius: var(--rad-lg);
+	overflow: hidden;
+	transition: transform .3s var(--ease), border-color .3s var(--ease);
+}
+.project:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+.project-large { grid-row: span 2; }
+.project-img {
+	position: relative;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	background: var(--ink-2);
+}
+.project-large .project-img { aspect-ratio: 16 / 11; }
+.project-img img {
+	width: 100%; height: 100%;
+	object-fit: cover;
+	transition: transform .6s var(--ease);
+}
+.project:hover .project-img img { transform: scale(1.04); }
+.project-img::after {
+	content: "";
+	position: absolute; inset: 0;
+	background: linear-gradient(180deg, transparent 60%, rgba(10, 6, 16, 0.7));
+}
+.project-body { padding: 26px 28px 30px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.project-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--text-mute);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+.project-meta .year { color: var(--purple-soft); }
+.project h3 { font-size: 24px; font-weight: 500; letter-spacing: -0.02em; margin: 0; }
+.project-large h3 { font-size: 30px; }
+.project p { font-size: 15px; line-height: 1.55; color: var(--text-soft); margin: 0; }
+.project p strong { color: var(--text); font-weight: 500; }
+.project .stack-pill { font-size: 12px; padding: 5px 10px; }
+.project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.project-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	color: var(--text);
+	padding-top: 6px;
+	transition: gap .2s var(--ease);
+}
+.project-link:hover { gap: 12px; color: var(--purple-soft); }
+
+/* ---------- About / contact ---------- */
+.about-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 56px;
+	align-items: start;
+}
+@media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.about-body {
+	font-size: 19px;
+	line-height: 1.55;
+	color: var(--text-soft);
+	letter-spacing: -0.005em;
+}
+.about-body p { margin: 0 0 22px; }
+.about-body p:last-child { margin: 0; }
+.about-body strong { color: var(--text); font-weight: 500; }
+
+.contact-card {
+	background: linear-gradient(180deg, rgba(168, 126, 255, 0.08), rgba(255,255,255,0.02));
+	border: 1px solid var(--line-strong);
+	border-radius: var(--rad-lg);
+	padding: 36px 32px;
+	position: relative;
+	overflow: hidden;
+}
+.contact-card::before {
+	content: "";
+	position: absolute;
+	top: -100px; right: -100px;
+	width: 260px; height: 260px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(168, 126, 255, 0.35), transparent 60%);
+	pointer-events: none;
+}
+.contact-card h3 {
+	font-family: var(--font-serif);
+	font-style: italic;
+	font-weight: 400;
+	font-size: 32px;
+	letter-spacing: -0.02em;
+	margin: 0 0 12px;
+	color: var(--text);
+	position: relative;
+}
+.contact-card p { font-size: 15px; color: var(--text-soft); line-height: 1.5; margin: 0 0 26px; max-width: 36ch; position: relative; }
+
+.contact-list { display: flex; flex-direction: column; gap: 10px; position: relative; }
+.contact-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 18px;
+	background: rgba(0,0,0,0.25);
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+.contact-item:hover { background: rgba(0,0,0,0.4); border-color: var(--line-strong); transform: translateY(-1px); }
+.contact-item .left { display: flex; align-items: center; gap: 14px; }
+.contact-item .ico {
+	width: 36px; height: 36px;
+	border-radius: 10px;
+	background: rgba(255,255,255,0.04);
+	display: flex; align-items: center; justify-content: center;
+	color: var(--purple-soft);
+	font-size: 14px;
+}
+.contact-item .label { font-size: 12px; color: var(--text-mute); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; }
+.contact-item .value { font-size: 15px; color: var(--text); font-weight: 500; }
+.contact-item .arrow { color: var(--text-mute); transition: transform .2s var(--ease), color .2s var(--ease); }
+.contact-item:hover .arrow { transform: translate(2px, -2px); color: var(--text); }
+
+/* ---------- Footer ---------- */
+footer {
+	border-top: 1px solid var(--line);
+	padding: 36px 0 48px;
+	color: var(--text-mute);
+	font-size: 13px;
+	font-family: var(--font-mono);
+}
+footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+footer a:hover { color: var(--text); }
+.footer-mark { color: var(--text); }
+
+/* ---------- Reveal animation ---------- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 540px) {
+	.section { padding: 84px 0; }
+	.hero { padding: 80px 0 60px; }
+	.hero-meta { margin-top: 56px; }
+	.cta-row .btn { flex: 1; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+	<a class="brand" href="#top">
+		<div class="brand-mark">JM</div>
+		<span>Jorge Martinez</span>
+	</a>
+	<nav class="nav-links">
+		<a href="#work">Work</a>
+		<a href="#expertise">Expertise</a>
+		<a href="#about">About</a>
+		<a href="#contact">Contact</a>
+	</nav>
+	<a class="nav-cta" href="#contact">
+		Get in touch
+		<i class="fa-solid fa-arrow-right" style="font-size:11px"></i>
+	</a>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+	<div class="container">
+		<div class="hero-eyebrow">Open to junior roles · Saskatoon, SK, CA</div>
+		<h1>Software <span class="accent">developer</span> &amp; computer hardware enthusiast.</h1>
+		<p class="hero-lede">
+			I'm a second-year Computer Systems student at <strong>Saskatchewan Polytechnic</strong>,
+			building web apps, troubleshooting real machines, and shipping projects I'm proud of.
+			Let's make something useful.
+		</p>
+		<div class="cta-row">
+			<a class="btn btn-primary" href="#work">
+				View selected work
+				<i class="fa-solid fa-arrow-right arrow" style="font-size:12px"></i>
+			</a>
+			<a class="btn btn-ghost" href="#contact">
+				<i class="fa-solid fa-envelope" style="font-size:13px"></i>
+				<span class="__cf_email__" data-cfemail="9af7fbe8eef3f4ffe0f6f5eaffe0a8ababaadae9fbe9f1eaf5f6e3eefff9f2b4f9fb">[email&#160;protected]</span>
+			</a>
+		</div>
+
+		<div class="hero-meta">
+			<div>
+				<div class="meta-label">Focus</div>
+				<div class="meta-value">Full-stack &amp; IT support</div>
+			</div>
+			<div>
+				<div class="meta-label">Available</div>
+				<div class="meta-value">Spring 2026</div>
+			</div>
+			<div>
+				<div class="meta-label">Location</div>
+				<div class="meta-value">Saskatoon, SK</div>
+			</div>
+			<div>
+				<div class="meta-label">Stack</div>
+				<div class="meta-value">Python · JS · C# · Java</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============ EXPERTISE ============ -->
+<section id="expertise" class="section">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">What I do</div>
+				<h2>Three things I do <em>well.</em></h2>
+			</div>
+			<p class="section-sub">From the keyboard to the case — building software, supporting users, and keeping hardware healthy.</p>
+		</div>
+		<div class="expertise-grid">
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-code"></i></div>
+				<h3>Software development</h3>
+				<p>Full-stack web apps with FastAPI, Next.js and React. Comfortable across Python, JavaScript, Java and C#.</p>
+				<div class="tag-row">
+					<span class="tag">FastAPI</span>
+					<span class="tag">Next.js</span>
+					<span class="tag">REST</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-headset"></i></div>
+				<h3>IT support</h3>
+				<p>Hands-on diagnosis, configuration, and end-user assistance across hardware, software, and network problems.</p>
+				<div class="tag-row">
+					<span class="tag">Windows</span>
+					<span class="tag">Networking</span>
+					<span class="tag">Tickets</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-microchip"></i></div>
+				<h3>Hardware troubleshooting</h3>
+				<p>Builds, repairs, and component-level diagnosis. The kind of student who actually enjoys cracking the case open.</p>
+				<div class="tag-row">
+					<span class="tag">Builds</span>
+					<span class="tag">Diagnostics</span>
+					<span class="tag">Repair</span>
+				</div>
+			</article>
+
+		</div>
+	</div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section id="work" class="section" style="padding-top:40px">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">Selected work</div>
+				<h2>A few things I've <em>shipped.</em></h2>
+			</div>
+			<p class="section-sub">Group projects, solo builds, and the occasional weekend rabbit hole. Click through for the source.</p>
+		</div>
+
+		<div class="projects-grid">
+
+			<a href="#" class="project project-large reveal">
+				<div class="project-img"><img src="assets/projects/lockanddoor.png" alt="Prestige Lock and Door"></div>
+				<div class="project-body">
+					<div class="project-meta">
+						<span class="year">2025 · Group project</span>
+						<span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+					</div>
+					<h3>Prestige Lock &amp; Door</h3>
+					<p>A web application that scans PDF documents with AI and surfaces their contents back to the team — turning paperwork into <strong>actionable business decisions</strong>.<br><br>
+						Implemented JWT-based authentication, audit logging, and role-aware event tracking on the FastAPI backend.<br><br>
+						Designed paginated, filterable MUI tables on the Next.js frontend; resolved several pagination bugs by tracing root causes through filter, slice, and state-reset logic.<br><br>
+						Wrote Cypress end-to-end tests using strict attribute and structural selectors for resilience against UI changes.<br><br>
+						Collaborated in a five-person agile team — owning frontend/backend integration work, code review, and authentication-related logging.<br>
+					</p>
+					<div class="project-stack">
+						<span class="stack-pill">Python</span>
+						<span class="stack-pill">AI / OCR</span>
+						<span class="stack-pill">React</span>
+					</div>
+<!--					<span class="project-link">View case study <i class="fa-solid fa-arrow-right"></i></span>-->
+				</div>
+			</a>
+
+			<a href="#" class="project reveal">
+				<div class="project-img"><img src="assets/projects/genshinproject.png" alt="Genshin Impact build guide creator"></div>
+				<div class="project-body">
+					<div class="project-meta">
+						<span class="year">2024 · With Chris Udey</span>
+						<span><i class="fa-brands fa-github"></i></span>
+					</div>
+					<h3>Genshin Build Guide</h3>
+					<p>Front and back end with Python <strong>FastAPI</strong> and <strong>Next.js</strong> — a full CRUD app for character build guides.</p>
+					<div class="project-stack">
+						<span class="stack-pill">FastAPI</span>
+						<span class="stack-pill">Next.js</span>
+						<span class="stack-pill">CRUD</span>
+					</div>
+				</div>
+			</a>
+
+			<a href="#" class="project reveal">
+				<div class="project-img"><img src="assets/projects/cardgame.png" alt="Card Game Website"></div>
+				<div class="project-body">
+					<div class="project-meta">
+						<span class="year">2024 · COSA 190</span>
+						<span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+					</div>
+					<h3>Math card games for kids</h3>
+					<p>A game site featuring <strong>Twenty Total</strong> and <strong>Memory</strong> — making math fun and rewarding successful runs with points.</p>
+					<div class="project-stack">
+						<span class="stack-pill">JavaScript</span>
+						<span class="stack-pill">HTML</span>
+						<span class="stack-pill">CSS</span>
+					</div>
+				</div>
+			</a>
+
+		</div>
+	</div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section">
+	<div class="container">
+		<div class="section-head reveal" style="margin-bottom:36px">
+			<div>
+				<div class="section-tag">About</div>
+				<h2>A bit about <em>me.</em></h2>
+			</div>
+		</div>
+		<div class="about-grid">
+			<div class="about-body reveal">
+				<p>I'm Jorge — a second-year Computer Systems student at Saskatchewan Polytechnic, and a long-time computer hardware enthusiast.</p>
+				<p>Creating software is my passion. I like the part of the work where a stubborn bug turns into a small, clean function; where a janky UI lands on something obvious. I want to do that for a living.</p>
+				<p>Outside of class I help friends and family with <strong>builds, repairs, and "why is this not working"</strong> — and I keep a side-list of small projects to chip away at on weekends.</p>
+				<div class="stack" style="margin-top:32px">
+					<span class="stack-pill"><i class="fa-brands fa-python"></i> Python</span>
+					<span class="stack-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+					<span class="stack-pill"><i class="fa-brands fa-java"></i> Java</span>
+					<span class="stack-pill"><i class="fa-solid fa-hashtag"></i> C#</span>
+					<span class="stack-pill"><i class="fa-brands fa-html5"></i> HTML</span>
+					<span class="stack-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+					<span class="stack-pill"><i class="fa-brands fa-react"></i> React / Next.js</span>
+					<span class="stack-pill"><i class="fa-solid fa-bolt"></i> FastAPI</span>
+					<span class="stack-pill"><i class="fa-solid fa-database"></i> SQL</span>
+				</div>
+			</div>
+
+			<aside id="contact" class="contact-card reveal">
+				<h3>Let's work together.</h3>
+				<p>I'm open to junior developer and IT support roles, contract work, and student co-op placements.</p>
+
+				<div class="contact-list">
+					<a class="contact-item" href="mailto:jorgemartinezux@gmail.com">
+						<div class="left">
+							<div class="ico"><i class="fa-solid fa-envelope"></i></div>
+							<div>
+								<div class="label">Email</div>
+								<div class="value"><span class="__cf_email__" data-cfemail="e08d819294898e859a8c8f90859ad2d1d1d0a09381938b908f8c9994858388ce8381">[email&#160;protected]</span></div>
+							</div>
+						</div>
+						<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+					</a>
+					<a class="contact-item" href="https://github.com/martinez-ux" target="_blank" rel="noopener">
+						<div class="left">
+							<div class="ico"><i class="fa-brands fa-github"></i></div>
+							<div>
+								<div class="label">GitHub</div>
+								<div class="value">@martinez-ux</div>
+							</div>
+						</div>
+						<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+					</a>
+					<a class="contact-item" href="https://linkedin.com/in/jorge-martinez-lopez-7025b9409">
+						<div class="left">
+							<div class="ico"><i class="fa-brands fa-linkedin-in"></i></div>
+							<div>
+								<div class="label">LinkedIn</div>
+								<div class="value">Jorge Martinez Lopez</div>
+							</div>
+						</div>
+						<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+					</a>
+				</div>
+			</aside>
+		</div>
+	</div>
+</section>
+
+<footer>
+	<div class="container">
+		<div><span class="footer-mark">© 2026 Jorge Martinez.</span> &nbsp;Built in Saskatoon.</div>
+		<div>v2.0 · last updated 05/2026</div>
+	</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+	// Reveal-on-scroll
+	const io = new IntersectionObserver((entries) => {
+		entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+	}, { threshold: 0.12 });
+	document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
