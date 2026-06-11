@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Math Card Games — Jorge Martinez</title>
+	<meta name="description" content="Game Hub — a single-page web app of math card games for kids. Twenty Total and Memory Match with accounts, statistics, and a credit shop. Built in vanilla JavaScript with Vite, Navigo and Bootstrap." />
+	<meta name="theme-color" content="#0A0610" />
+	<meta property="og:title" content="Math Card Games — Jorge Martinez" />
+	<meta property="og:description" content="A vanilla-JS single-page app of math card games for kids — accounts, stats, and a credit shop, fully tested with Cypress." />
+	<meta property="og:type" content="article" />
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23A855F7'/%3E%3Cstop offset='.5' stop-color='%23EC4899'/%3E%3Cstop offset='1' stop-color='%23FFD86B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='800' text-anchor='middle' fill='%2310071A'%3EJM%3C/text%3E%3C/svg%3E" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<style>
+		:root {
+			--ink-0:#0A0610;
+			--ink-1:#0F0918;
+			--ink-2:#171024;
+			--ink-3:#211632;
+			--ink-4:#2D1F44;
+			--line:rgba(255,255,255,0.08);
+			--line-strong:rgba(255,255,255,0.14);
+			--text:#F4F1FA;
+			--text-soft:#B6ADC9;
+			--text-mute:#7C7390;
+			--purple:#8C42FF;
+			--purple-soft:#A87EFF;
+			--purple-deep:#5A2A82;
+			--gold:#FFD86B;
+			--gold-deep:#D4A017;
+			--cyan:#30D5C8;
+			--cyan-deep:#1FA89C;
+			--pink:#EC4899;
+			--violet:#8B5CF6;
+			--grad-accent: linear-gradient(135deg, #A855F7 0%, #EC4899 50%, #FFD86B 100%);
+			--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+			--font-mono: 'Geist Mono', ui-monospace, monospace;
+			--font-serif: 'Instrument Serif', Georgia, serif;
+			--rad-sm: 8px;
+			--rad-md: 14px;
+			--rad-lg: 22px;
+			--maxw: 1180px;
+			--ease: cubic-bezier(.2, .7, .2, 1);
+		}
+
+		* { box-sizing: border-box; }
+		html, body { margin: 0; padding: 0; }
+		html { scroll-behavior: smooth; }
+		body {
+			background: var(--ink-0);
+			color: var(--text);
+			font-family: var(--font-sans);
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 1.6;
+			-webkit-font-smoothing: antialiased;
+			overflow-x: hidden;
+		}
+
+		/* Atmospheric backdrop — soft glows and a faint grid, same as the home page */
+		body::before {
+			content: "";
+			position: fixed;
+			inset: 0;
+			z-index: -2;
+			background:
+					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.28), transparent 60%),
+					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.18), transparent 60%),
+					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.10), transparent 60%);
+			pointer-events: none;
+		}
+		body::after {
+			content: "";
+			position: fixed;
+			inset: 0;
+			z-index: -1;
+			background-image:
+					linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+			background-size: 56px 56px;
+			mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+			-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+			pointer-events: none;
+		}
+
+		a { color: inherit; text-decoration: none; }
+		a:hover { color: var(--purple-soft); }
+
+		.container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+		/* ---------- Top nav ---------- */
+		.nav {
+			position: sticky;
+			top: 14px;
+			z-index: 50;
+			margin: 14px auto 0;
+			max-width: calc(var(--maxw) - 56px);
+			padding: 10px 14px 10px 22px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-radius: 999px;
+			background: rgba(15, 9, 24, 0.6);
+			backdrop-filter: blur(20px) saturate(140%);
+			-webkit-backdrop-filter: blur(20px) saturate(140%);
+			border: 1px solid var(--line);
+		}
+		.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+		.brand-mark {
+			width: 28px; height: 28px;
+			border-radius: 8px;
+			background: var(--grad-accent);
+			display: flex; align-items: center; justify-content: center;
+			color: #10071A;
+			font-weight: 800;
+			font-size: 13px;
+			letter-spacing: -0.02em;
+			box-shadow: 0 6px 16px -4px rgba(168, 126, 255, 0.6);
+		}
+		.nav-links { display: flex; gap: 4px; }
+		.nav-links a {
+			padding: 8px 14px;
+			border-radius: 999px;
+			font-size: 14px;
+			color: var(--text-soft);
+			transition: color .2s var(--ease), background .2s var(--ease);
+		}
+		.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+		.nav-cta {
+			padding: 9px 16px 9px 18px;
+			border-radius: 999px;
+			background: var(--text);
+			color: var(--ink-0) !important;
+			font-size: 14px;
+			font-weight: 500;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+		}
+		.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(255,255,255,0.4); }
+		@media (max-width: 720px) { .nav-links { display: none; } }
+
+		/* ---------- Hero ---------- */
+		.hero { padding: 100px 0 70px; position: relative; }
+		.hero-eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: 6px 14px 6px 8px;
+			border-radius: 999px;
+			background: rgba(255,255,255,0.04);
+			border: 1px solid var(--line);
+			font-size: 13px;
+			color: var(--text-soft);
+			font-family: var(--font-mono);
+			margin-bottom: 28px;
+		}
+		.hero-eyebrow::before {
+			content: "";
+			width: 8px; height: 8px; border-radius: 50%;
+			background: var(--gold);
+			box-shadow: 0 0 12px var(--gold);
+			animation: pulse 2s ease-in-out infinite;
+		}
+		@keyframes pulse { 50% { opacity: 0.5; transform: scale(0.85); } }
+
+		.hero h1 {
+			font-family: var(--font-sans);
+			font-size: clamp(42px, 7vw, 84px);
+			line-height: 0.98;
+			letter-spacing: -0.04em;
+			font-weight: 600;
+			margin: 0 0 28px;
+			max-width: 16ch;
+		}
+		.hero h1 .accent {
+			font-family: var(--font-serif);
+			font-style: italic;
+			font-weight: 400;
+			background: var(--grad-accent);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			letter-spacing: -0.01em;
+		}
+		.hero-lede {
+			font-size: 20px;
+			line-height: 1.5;
+			color: var(--text-soft);
+			max-width: 58ch;
+			margin: 0 0 40px;
+		}
+		.hero-lede strong { color: var(--text); font-weight: 500; }
+
+		.cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: 14px 22px;
+			border-radius: 12px;
+			font-family: var(--font-sans);
+			font-size: 15px;
+			font-weight: 500;
+			letter-spacing: -0.005em;
+			cursor: pointer;
+			border: 0;
+			transition: transform .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+		}
+		.btn-primary {
+			background: var(--text);
+			color: var(--ink-0);
+			box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px -12px rgba(244,241,250,0.3);
+		}
+		.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 16px 40px -12px rgba(244,241,250,0.4); }
+		.btn-ghost {
+			background: rgba(255,255,255,0.04);
+			color: var(--text);
+			border: 1px solid var(--line-strong);
+		}
+		.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+		.btn .arrow { transition: transform .2s var(--ease); }
+		.btn:hover .arrow { transform: translateX(3px); }
+
+		/* ---------- Hero meta strip ---------- */
+		.hero-meta {
+			margin-top: 64px;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 0;
+			border-top: 1px solid var(--line);
+			border-bottom: 1px solid var(--line);
+		}
+		.hero-meta > div {
+			padding: 24px 0;
+			border-right: 1px solid var(--line);
+		}
+		.hero-meta > div:last-child { border-right: 0; }
+		.hero-meta > div:not(:first-child) { padding-left: 24px; }
+		.meta-label {
+			font-family: var(--font-mono);
+			font-size: 11px;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--text-mute);
+			margin-bottom: 8px;
+		}
+		.meta-value { font-size: 16px; color: var(--text); font-weight: 500; }
+		@media (max-width: 720px) {
+			.hero-meta { grid-template-columns: 1fr 1fr; }
+			.hero-meta > div:nth-child(2) { border-right: 0; }
+			.hero-meta > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+		}
+
+		/* ---------- Showcase image ---------- */
+		.showcase { padding: 20px 0 0; }
+		.showcase-frame {
+			border: 1px solid var(--line-strong);
+			border-radius: var(--rad-lg);
+			overflow: hidden;
+			background: var(--ink-2);
+			box-shadow: 0 40px 100px -40px rgba(140, 66, 255, 0.35);
+		}
+		.showcase-frame img { width: 100%; display: block; }
+
+		/* ---------- Section header ---------- */
+		.section { padding: 110px 0; }
+		.section-head {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 40px;
+			margin-bottom: 56px;
+			flex-wrap: wrap;
+		}
+		.section-tag {
+			font-family: var(--font-mono);
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 0.18em;
+			color: var(--purple-soft);
+			margin: 0 0 14px;
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.section-tag::before {
+			content: ""; width: 24px; height: 1px; background: var(--purple-soft);
+		}
+		.section h2 {
+			font-size: clamp(36px, 5vw, 56px);
+			line-height: 1.02;
+			letter-spacing: -0.03em;
+			font-weight: 500;
+			margin: 0;
+			max-width: 18ch;
+		}
+		.section h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--purple-soft); }
+		.section-sub {
+			max-width: 36ch;
+			color: var(--text-soft);
+			font-size: 16px;
+			line-height: 1.55;
+			margin: 0;
+		}
+
+		/* ---------- Overview prose ---------- */
+		.overview-grid {
+			display: grid;
+			grid-template-columns: 1.2fr 1fr;
+			gap: 56px;
+			align-items: start;
+		}
+		@media (max-width: 880px) { .overview-grid { grid-template-columns: 1fr; gap: 40px; } }
+		.overview-body {
+			font-size: 19px;
+			line-height: 1.55;
+			color: var(--text-soft);
+			letter-spacing: -0.005em;
+		}
+		.overview-body p { margin: 0 0 22px; }
+		.overview-body p:last-child { margin: 0; }
+		.overview-body strong { color: var(--text); font-weight: 500; }
+
+		.flow-card {
+			background: linear-gradient(180deg, rgba(168, 126, 255, 0.08), rgba(255,255,255,0.02));
+			border: 1px solid var(--line-strong);
+			border-radius: var(--rad-lg);
+			padding: 30px 28px;
+		}
+		.flow-card h3 {
+			font-family: var(--font-serif);
+			font-style: italic;
+			font-weight: 400;
+			font-size: 26px;
+			letter-spacing: -0.02em;
+			margin: 0 0 18px;
+		}
+		.flow-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+		.flow-list li {
+			display: flex;
+			align-items: flex-start;
+			gap: 14px;
+			padding: 14px 16px;
+			background: rgba(0,0,0,0.25);
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			font-size: 14.5px;
+			color: var(--text-soft);
+			line-height: 1.5;
+		}
+		.flow-list .num {
+			flex: none;
+			width: 26px; height: 26px;
+			border-radius: 8px;
+			display: flex; align-items: center; justify-content: center;
+			background: rgba(140, 66, 255, 0.15);
+			border: 1px solid rgba(168, 126, 255, 0.3);
+			color: var(--purple-soft);
+			font-family: var(--font-mono);
+			font-size: 12px;
+			margin-top: 1px;
+		}
+		.flow-list strong { color: var(--text); font-weight: 500; }
+
+		/* ---------- Feature cards ---------- */
+		.feature-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px;
+		}
+		@media (max-width: 880px) { .feature-grid { grid-template-columns: 1fr; } }
+		.exp-card {
+			padding: 32px 28px 30px;
+			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+			border: 1px solid var(--line);
+			border-radius: var(--rad-lg);
+			position: relative;
+			overflow: hidden;
+			transition: transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+		}
+		.exp-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+		.exp-card .ico {
+			width: 44px; height: 44px;
+			border-radius: 12px;
+			display: flex; align-items: center; justify-content: center;
+			background: rgba(140, 66, 255, 0.12);
+			border: 1px solid rgba(168, 126, 255, 0.25);
+			color: var(--purple-soft);
+			font-size: 18px;
+			margin-bottom: 22px;
+		}
+		.exp-card h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin: 0 0 10px; }
+		.exp-card p { font-size: 15px; line-height: 1.55; color: var(--text-soft); margin: 0; }
+		.exp-card .tag-row { margin-top: 18px; display: flex; gap: 6px; flex-wrap: wrap; }
+		.tag {
+			font-family: var(--font-mono);
+			font-size: 11px;
+			color: var(--text-mute);
+			padding: 3px 8px;
+			border: 1px solid var(--line);
+			border-radius: 6px;
+		}
+
+		/* ---------- Stack columns ---------- */
+		.stack-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px;
+		}
+		@media (max-width: 880px) { .stack-grid { grid-template-columns: 1fr; } }
+		.stack-col {
+			padding: 28px;
+			border: 1px solid var(--line);
+			border-radius: var(--rad-lg);
+			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+		}
+		.stack-col .col-label {
+			font-family: var(--font-mono);
+			font-size: 11px;
+			text-transform: uppercase;
+			letter-spacing: 0.14em;
+			color: var(--text-mute);
+			margin-bottom: 18px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.stack-col .col-label i { color: var(--purple-soft); font-size: 13px; }
+		.stack { display: flex; flex-wrap: wrap; gap: 8px; }
+		.stack-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 14px;
+			background: rgba(255,255,255,0.04);
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			font-family: var(--font-mono);
+			font-size: 13px;
+			color: var(--text-soft);
+			transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+		}
+		.stack-pill i { font-size: 14px; }
+		.stack-pill:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--line-strong); }
+
+		/* ---------- Architecture cards ---------- */
+		.schema-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px;
+		}
+		@media (max-width: 880px) { .schema-grid { grid-template-columns: 1fr; } }
+		.schema-card {
+			border: 1px solid var(--line);
+			border-radius: var(--rad-lg);
+			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+			overflow: hidden;
+		}
+		.schema-card .schema-head {
+			padding: 18px 24px;
+			border-bottom: 1px solid var(--line);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+		}
+		.schema-card .schema-head strong { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--text); }
+		.schema-card .schema-head span {
+			font-family: var(--font-mono);
+			font-size: 10px;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--gold);
+			padding: 3px 8px;
+			border: 1px solid rgba(255, 216, 107, 0.3);
+			background: rgba(255, 216, 107, 0.08);
+			border-radius: 6px;
+			white-space: nowrap;
+		}
+		.schema-card ul { list-style: none; margin: 0; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 8px; }
+		.schema-card li {
+			font-family: var(--font-mono);
+			font-size: 13px;
+			color: var(--text-soft);
+			display: flex;
+			align-items: baseline;
+			gap: 10px;
+		}
+		.schema-card li::before { content: "·"; color: var(--purple-soft); }
+		.schema-card li em { font-style: normal; color: var(--text-mute); margin-left: auto; font-size: 11.5px; }
+
+		/* ---------- By-the-numbers panel ---------- */
+		.rules-panel {
+			margin-top: 16px;
+			border: 1px solid var(--line);
+			border-radius: var(--rad-lg);
+			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+			padding: 28px;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 20px;
+		}
+		@media (max-width: 880px) { .rules-panel { grid-template-columns: 1fr 1fr; } }
+		@media (max-width: 540px) { .rules-panel { grid-template-columns: 1fr; } }
+		.rule .rule-label {
+			font-family: var(--font-mono);
+			font-size: 11px;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--text-mute);
+			margin-bottom: 6px;
+		}
+		.rule .rule-value { font-size: 14.5px; color: var(--text-soft); line-height: 1.5; }
+		.rule .rule-value strong { color: var(--text); font-weight: 500; }
+
+		/* ---------- Gallery ---------- */
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 16px;
+		}
+		@media (max-width: 880px) { .gallery-grid { grid-template-columns: 1fr; } }
+		.gallery-grid figure {
+			margin: 0;
+			border: 1px solid var(--line);
+			border-radius: var(--rad-lg);
+			overflow: hidden;
+			background: var(--ink-2);
+			transition: transform .3s var(--ease), border-color .3s var(--ease);
+		}
+		.gallery-grid figure:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+		.gallery-grid img { width: 100%; display: block; }
+		.gallery-grid figcaption {
+			padding: 14px 20px;
+			font-family: var(--font-mono);
+			font-size: 12.5px;
+			color: var(--text-soft);
+			border-top: 1px solid var(--line);
+		}
+
+		/* ---------- Back strip ---------- */
+		.back-strip {
+			border: 1px solid var(--line-strong);
+			border-radius: var(--rad-lg);
+			background: linear-gradient(180deg, rgba(168, 126, 255, 0.08), rgba(255,255,255,0.02));
+			padding: 40px 36px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 24px;
+			flex-wrap: wrap;
+			position: relative;
+			overflow: hidden;
+		}
+		.back-strip::before {
+			content: "";
+			position: absolute;
+			top: -100px; right: -100px;
+			width: 260px; height: 260px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(168, 126, 255, 0.35), transparent 60%);
+			pointer-events: none;
+		}
+		.back-strip h3 {
+			font-family: var(--font-serif);
+			font-style: italic;
+			font-weight: 400;
+			font-size: 30px;
+			letter-spacing: -0.02em;
+			margin: 0 0 8px;
+		}
+		.back-strip p { margin: 0; color: var(--text-soft); font-size: 15px; max-width: 44ch; }
+
+		/* ---------- Footer ---------- */
+		footer {
+			border-top: 1px solid var(--line);
+			padding: 36px 0 48px;
+			color: var(--text-mute);
+			font-size: 13px;
+			font-family: var(--font-mono);
+		}
+		footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+		footer a:hover { color: var(--text); }
+		.footer-mark { color: var(--text); }
+
+		/* ---------- Reveal animation ---------- */
+		.reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+		.reveal.in { opacity: 1; transform: translateY(0); }
+
+		@media (max-width: 540px) {
+			.section { padding: 80px 0; }
+			.hero { padding: 72px 0 48px; }
+			.hero-meta { margin-top: 48px; }
+			.cta-row .btn { flex: 1; justify-content: center; }
+		}
+	</style>
+</head>
+<body>
+
+<header class="nav">
+	<a class="brand" href="index.html">
+		<div class="brand-mark">JM</div>
+		<span>Jorge Martinez</span>
+	</a>
+	<nav class="nav-links">
+		<a href="#overview">Overview</a>
+		<a href="#features">Features</a>
+		<a href="#stack">Stack</a>
+		<a href="#architecture">Architecture</a>
+	</nav>
+	<a class="nav-cta" href="index.html#work">
+		<i class="fa-solid fa-arrow-left" style="font-size:11px"></i>
+		Back to portfolio
+	</a>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+	<div class="container">
+		<div class="hero-eyebrow">Project case study · COSA 195 Systems Project</div>
+		<h1>Math card games, <span class="accent">kid-approved.</span></h1>
+		<p class="hero-lede">
+			A single-page game hub where kids practice math by playing cards — <strong>Twenty Total</strong>
+			and <strong>Memory Match</strong>, with math-question popups, player accounts, statistics
+			tracking, and a credit shop for unlockables. Written in <strong>vanilla JavaScript</strong>,
+			no frontend framework, and tested end-to-end with Cypress.
+		</p>
+		<div class="cta-row">
+			<a class="btn btn-primary" href="#overview">
+				See how it works
+				<i class="fa-solid fa-arrow-down arrow" style="font-size:12px"></i>
+			</a>
+			<a class="btn btn-ghost" href="index.html#work">
+				<i class="fa-solid fa-grip" style="font-size:13px"></i>
+				<span>All projects</span>
+			</a>
+		</div>
+
+		<div class="hero-meta">
+			<div>
+				<div class="meta-label">Year</div>
+				<div class="meta-value">2025</div>
+			</div>
+			<div>
+				<div class="meta-label">Course</div>
+				<div class="meta-value">COSA 195 · Team of 4</div>
+			</div>
+			<div>
+				<div class="meta-label">Type</div>
+				<div class="meta-value">Vanilla JS single-page app</div>
+			</div>
+			<div>
+				<div class="meta-label">Stack</div>
+				<div class="meta-value">Vite · Navigo · Bootstrap</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============ SCREENSHOT ============ -->
+<div class="showcase">
+	<div class="container">
+		<div class="showcase-frame reveal">
+			<img src="assets/projects/cardgame.png" alt="Game Hub — math card games for kids, showing the card table">
+		</div>
+	</div>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<section id="overview" class="section">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">Overview</div>
+				<h2>What the app <em>does.</em></h2>
+			</div>
+			<p class="section-sub">Practice math, earn points and credits, unlock cosmetics — a game loop that makes kids want one more round.</p>
+		</div>
+		<div class="overview-grid">
+			<div class="overview-body reveal">
+				<p>Game Hub is an educational gaming site built around two card games:
+					<strong>Twenty Total</strong>, where players combine cards to hit a total of twenty
+					against the clock, and <strong>Memory Match</strong>, a classic pair-matching game.
+					Both weave in <strong>math question popups</strong>, so every round doubles as practice.</p>
+				<p>Players register an account — passwords are <strong>encrypted with crypto-js</strong>
+					before they're stored — then earn points and credits as they play. A protected
+					<strong>statistics page</strong> tracks per-game performance, and the
+					<strong>credit shop</strong> lets players spend their winnings on unlockable card backs
+					and color themes that persist on their profile.</p>
+				<p>The whole thing is a <strong>framework-free single-page app</strong>: Navigo handles
+					client-side routing, hand-rolled components render each page, and a json-server REST API
+					persists users, stats, and products. Nineteen <strong>Cypress suites</strong> — both
+					end-to-end and component tests — keep it honest.</p>
+			</div>
+
+			<aside class="flow-card reveal">
+				<h3>A player's journey</h3>
+				<ul class="flow-list">
+					<li><span class="num">1</span><span><strong>Sign up or log in.</strong> Accounts are stored through a REST API with crypto-js-encrypted passwords; guests are routed back to login.</span></li>
+					<li><span class="num">2</span><span><strong>Pick a game in the hub.</strong> Twenty Total (3–10 columns) or Memory Match (4–40 cards) — both configurable before each round.</span></li>
+					<li><span class="num">3</span><span><strong>Play against the timer.</strong> Card flips, sound effects, and math question popups keep the round moving.</span></li>
+					<li><span class="num">4</span><span><strong>Score points, earn credits.</strong> Results post to the player's account and roll into their statistics.</span></li>
+					<li><span class="num">5</span><span><strong>Spend at the credit shop.</strong> Unlock card backs and color themes; active picks apply across the games.</span></li>
+				</ul>
+			</aside>
+		</div>
+	</div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features" class="section" style="padding-top:0">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">Features</div>
+				<h2>A full game loop, <em>no framework.</em></h2>
+			</div>
+			<p class="section-sub">Routing, components, state, auth, and a reward economy — all built by hand in plain JavaScript.</p>
+		</div>
+		<div class="feature-grid">
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-calculator"></i></div>
+				<h3>Twenty Total</h3>
+				<p>Combine cards to hit exactly twenty before time runs out. Adjustable difficulty (3–10 columns), discard tracking, and a live scoring summary.</p>
+				<div class="tag-row">
+					<span class="tag">Timer</span>
+					<span class="tag">Configurable</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-clone"></i></div>
+				<h3>Memory Match</h3>
+				<p>Flip and match pairs from a board of 4 to 40 cards, with smooth flip animations, sound effects, and win/lose screens worth celebrating.</p>
+				<div class="tag-row">
+					<span class="tag">Animations</span>
+					<span class="tag">Audio</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-square-root-variable"></i></div>
+				<h3>Math question popups</h3>
+				<p>Question prompts appear during play, turning each round into math practice — the educational layer that ties the games together.</p>
+				<div class="tag-row">
+					<span class="tag">Education</span>
+					<span class="tag">Popups</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-user-shield"></i></div>
+				<h3>Accounts &amp; auth</h3>
+				<p>Registration, login, password changes, and account deletion — with passwords encrypted via crypto-js and protected routes that redirect guests to login.</p>
+				<div class="tag-row">
+					<span class="tag">crypto-js</span>
+					<span class="tag">Protected routes</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-chart-line"></i></div>
+				<h3>Statistics tracking</h3>
+				<p>Per-player, per-game stats persist to the API and surface on a login-protected statistics page, so players can watch themselves improve.</p>
+				<div class="tag-row">
+					<span class="tag">Per-game stats</span>
+					<span class="tag">REST API</span>
+				</div>
+			</article>
+
+			<article class="exp-card reveal">
+				<div class="ico"><i class="fa-solid fa-coins"></i></div>
+				<h3>Credit shop</h3>
+				<p>Playing well earns credits, and credits buy cosmetics — alternate card backs and color themes, unlocked per account with active picks saved to the profile.</p>
+				<div class="tag-row">
+					<span class="tag">Unlockables</span>
+					<span class="tag">Reward economy</span>
+				</div>
+			</article>
+
+		</div>
+
+		<div class="rules-panel reveal">
+			<div class="rule">
+				<div class="rule-label">Games</div>
+				<div class="rule-value"><strong>2 card games</strong>, both timed</div>
+			</div>
+			<div class="rule">
+				<div class="rule-label">Routes</div>
+				<div class="rule-value"><strong>10 SPA pages</strong> via Navigo</div>
+			</div>
+			<div class="rule">
+				<div class="rule-label">Board size</div>
+				<div class="rule-value"><strong>Up to 40 cards</strong> in Memory Match</div>
+			</div>
+			<div class="rule">
+				<div class="rule-label">Tests</div>
+				<div class="rule-value"><strong>19 Cypress suites</strong> (13 E2E + 6 component)</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section id="stack" class="section" style="padding-top:0">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">Tech stack</div>
+				<h2>What it's <em>made of.</em></h2>
+			</div>
+			<p class="section-sub">Plain JavaScript doing framework work — routing, components, and persistence included.</p>
+		</div>
+		<div class="stack-grid">
+
+			<div class="stack-col reveal">
+				<div class="col-label"><i class="fa-solid fa-window-maximize"></i> Frontend</div>
+				<div class="stack">
+					<span class="stack-pill"><i class="fa-brands fa-js"></i> Vanilla JS (ES modules)</span>
+					<span class="stack-pill"><i class="fa-solid fa-bolt"></i> Vite</span>
+					<span class="stack-pill"><i class="fa-solid fa-route"></i> Navigo router</span>
+					<span class="stack-pill"><i class="fa-brands fa-bootstrap"></i> Bootstrap 5</span>
+					<span class="stack-pill"><i class="fa-solid fa-volume-high"></i> Web audio</span>
+				</div>
+			</div>
+
+			<div class="stack-col reveal">
+				<div class="col-label"><i class="fa-solid fa-server"></i> Data &amp; auth</div>
+				<div class="stack">
+					<span class="stack-pill"><i class="fa-solid fa-database"></i> json-server REST API</span>
+					<span class="stack-pill"><i class="fa-solid fa-lock"></i> crypto-js</span>
+					<span class="stack-pill"><i class="fa-solid fa-cookie-bite"></i> Cookie sessions</span>
+				</div>
+			</div>
+
+			<div class="stack-col reveal">
+				<div class="col-label"><i class="fa-solid fa-flask"></i> Testing</div>
+				<div class="stack">
+					<span class="stack-pill"><i class="fa-solid fa-vial"></i> Cypress E2E</span>
+					<span class="stack-pill"><i class="fa-solid fa-puzzle-piece"></i> Component tests</span>
+					<span class="stack-pill"><i class="fa-solid fa-file-code"></i> Fixtures</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section id="architecture" class="section" style="padding-top:0">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">Architecture</div>
+				<h2>Hand-rolled, <em>by design.</em></h2>
+			</div>
+			<p class="section-sub">Pages, components, and utilities — the same separation a framework gives you, written from scratch.</p>
+		</div>
+		<div class="schema-grid">
+
+			<div class="schema-card reveal">
+				<div class="schema-head">
+					<strong>Pages</strong>
+					<span>10 routes</span>
+				</div>
+				<ul>
+					<li>game hub <em>landing</em></li>
+					<li>twenty-total, memory <em>games</em></li>
+					<li>login, register, account <em>auth</em></li>
+					<li>statistics, credit shop <em>protected</em></li>
+				</ul>
+			</div>
+
+			<div class="schema-card reveal">
+				<div class="schema-head">
+					<strong>Components</strong>
+					<span>Reusable</span>
+				</div>
+				<ul>
+					<li>card, card-group <em>game board</em></li>
+					<li>counter <em>scoring</em></li>
+					<li>navbar <em>dynamic</em></li>
+					<li>product-list <em>paginated</em></li>
+				</ul>
+			</div>
+
+			<div class="schema-card reveal">
+				<div class="schema-head">
+					<strong>Utilities</strong>
+					<span>Game logic</span>
+				</div>
+				<ul>
+					<li>game, question, audio <em>gameplay</em></li>
+					<li>credits, modifiers <em>economy</em></li>
+					<li>users, stats <em>API controllers</em></li>
+					<li>encrypt, cookies <em>auth</em></li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="section" style="padding-top:0">
+	<div class="container">
+		<div class="section-head reveal">
+			<div>
+				<div class="section-tag">In action</div>
+				<h2>Straight from <em>the app.</em></h2>
+			</div>
+			<p class="section-sub">Captured from the app running locally — Vite dev server plus the json-server API.</p>
+		</div>
+		<div class="gallery-grid">
+			<figure class="reveal">
+				<img src="assets/projects/cardgame-hub.png" alt="Game Hub landing page with Twenty Total and Memory" loading="lazy">
+				<figcaption>Game Hub — pick a game; credits and pending rewards up top</figcaption>
+			</figure>
+			<figure class="reveal">
+				<img src="assets/projects/cardgame-twenty-total.png" alt="Twenty Total mid-game with scoring summary and timer" loading="lazy">
+				<figcaption>Twenty Total — a live round with the clock running</figcaption>
+			</figure>
+			<figure class="reveal">
+				<img src="assets/projects/cardgame-question.png" alt="Bonus math question popup answered correctly for credits" loading="lazy">
+				<figcaption>Bonus question — answer right, earn credits (+2 banked here)</figcaption>
+			</figure>
+			<figure class="reveal">
+				<img src="assets/projects/cardgame-memory.png" alt="Memory Match board with two cards flipped" loading="lazy">
+				<figcaption>Memory Match — a 16-card board mid-flip</figcaption>
+			</figure>
+			<figure class="reveal">
+				<img src="assets/projects/cardgame-credit-shop.png" alt="Credit shop with unlockable card backs and color themes" loading="lazy">
+				<figcaption>Credit shop — unlockable card backs and colour themes</figcaption>
+			</figure>
+			<figure class="reveal">
+				<img src="assets/projects/cardgame-stats.png" alt="Statistics page with per-game scoreboard and match history" loading="lazy">
+				<figcaption>Statistics — per-game scoreboards with match history</figcaption>
+			</figure>
+		</div>
+	</div>
+</section>
+
+<!-- ============ BACK STRIP ============ -->
+<section class="section" style="padding-top:0">
+	<div class="container">
+		<div class="back-strip reveal">
+			<div>
+				<h3>Curious about the rest?</h3>
+				<p>This is one of several projects I've shipped — head back to the portfolio for the others, or get in touch.</p>
+			</div>
+			<div class="cta-row">
+				<a class="btn btn-primary" href="index.html#work">
+					Back to projects
+					<i class="fa-solid fa-arrow-right arrow" style="font-size:12px"></i>
+				</a>
+				<a class="btn btn-ghost" href="index.html#contact">
+					<i class="fa-solid fa-envelope" style="font-size:13px"></i>
+					<span>Contact</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer>
+	<div class="container">
+		<div><span class="footer-mark">© 2026 Jorge Martinez.</span> &nbsp;Built in Saskatoon.</div>
+		<div><a href="index.html">← Back to home</a></div>
+	</div>
+</footer>
+
+<script>
+	// Reveal-on-scroll, same behavior as the home page
+	const io = new IntersectionObserver((entries) => {
+		entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+	}, { threshold: 0.12 });
+	document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
