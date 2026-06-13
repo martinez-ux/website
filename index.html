@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script>document.documentElement.classList.add('js');</script>
 	<title>Jorge Martinez — Software Developer</title>
 	<meta name="description" content="Jorge Martinez — software developer and computer hardware enthusiast in Saskatoon, SK. Full-stack projects in Python, JavaScript, C# and Java. Open to junior roles for Spring 2026." />
 	<meta name="theme-color" content="#0A0610" />
@@ -12,8 +13,9 @@
 	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23A855F7'/%3E%3Cstop offset='.5' stop-color='%23EC4899'/%3E%3Cstop offset='1' stop-color='%23FFD86B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='800' text-anchor='middle' fill='%2310071A'%3EJM%3C/text%3E%3C/svg%3E" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 	<style>
 		:root {
 			--ink-0:#0A0610;
@@ -25,7 +27,7 @@
 			--line-strong:rgba(255,255,255,0.14);
 			--text:#F4F1FA;
 			--text-soft:#B6ADC9;
-			--text-mute:#7C7390;
+			--text-mute:#8B82A0;
 			--purple:#8C42FF;
 			--purple-soft:#A87EFF;
 			--purple-deep:#5A2A82;
@@ -66,9 +68,9 @@
 			inset: 0;
 			z-index: -2;
 			background:
-					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.28), transparent 60%),
-					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.18), transparent 60%),
-					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.10), transparent 60%);
+					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.18), transparent 60%),
+					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.11), transparent 60%),
+					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.06), transparent 60%);
 			pointer-events: none;
 		}
 		body::after {
@@ -87,6 +89,9 @@
 
 		a { color: inherit; text-decoration: none; }
 		a:hover { color: var(--purple-soft); }
+
+		/* Visible keyboard focus — violet ring on every interactive element */
+		:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 3px; }
 
 		.container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 
@@ -143,6 +148,55 @@
 		.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(255,255,255,0.4); }
 		@media (max-width: 720px) { .nav-links { display: none; } }
 
+		/* ---------- Mobile menu ---------- */
+		.menu-btn {
+			display: none;
+			width: 44px;
+			height: 44px;
+			align-items: center;
+			justify-content: center;
+			border-radius: 999px;
+			background: rgba(255,255,255,0.04);
+			border: 1px solid var(--line);
+			color: var(--text);
+			font-size: 15px;
+			cursor: pointer;
+			transition: background .2s var(--ease);
+		}
+		.menu-btn:hover { background: rgba(255,255,255,0.08); }
+		@media (max-width: 720px) { .menu-btn { display: inline-flex; } }
+		.mobile-menu {
+			position: fixed;
+			top: 78px;
+			left: 16px;
+			right: 16px;
+			z-index: 60;
+			background: rgba(15, 9, 24, 0.92);
+			backdrop-filter: blur(24px) saturate(140%);
+			-webkit-backdrop-filter: blur(24px) saturate(140%);
+			border: 1px solid var(--line-strong);
+			border-radius: var(--rad-md);
+			padding: 10px;
+			box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
+		}
+		.mobile-menu a {
+			display: flex;
+			align-items: center;
+			min-height: 48px;
+			padding: 12px 16px;
+			border-radius: 10px;
+			font-size: 16px;
+			color: var(--text-soft);
+		}
+		.mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+
+		/* Touch devices get full-size targets without changing the desktop look */
+		@media (pointer: coarse) {
+			.nav-links a { padding: 12px 16px; }
+			.trophy-btn { min-height: 44px; padding: 11px 16px; }
+			.nav-cta { min-height: 44px; }
+		}
+
 		/* ---------- Hero ---------- */
 		.hero { padding: 120px 0 100px; position: relative; }
 		.hero-eyebrow {
@@ -180,10 +234,7 @@
 			font-family: var(--font-serif);
 			font-style: italic;
 			font-weight: 400;
-			background: var(--grad-accent);
-			-webkit-background-clip: text;
-			background-clip: text;
-			color: transparent;
+			color: var(--purple-soft);
 			letter-spacing: -0.01em;
 		}
 		.hero-lede {
@@ -551,7 +602,7 @@
 		.ach-panel-head strong { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
 		.ach-panel-head span { font-family: var(--font-mono); font-size: 12px; color: var(--text-mute); }
 		.ach-bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; margin-bottom: 16px; }
-		.ach-bar-fill { height: 100%; width: 0; border-radius: 999px; background: var(--grad-accent); transition: width .6s var(--ease); }
+		.ach-bar-fill { height: 100%; width: 100%; border-radius: 999px; background: var(--grad-accent); transform: scaleX(0); transform-origin: 0 50%; transition: transform .6s var(--ease); }
 		.ach-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 		.ach-item {
 			display: flex;
@@ -574,8 +625,9 @@
 		.ach-item .ach-name { font-size: 14px; font-weight: 500; }
 		.ach-item .ach-desc { font-size: 12.5px; color: var(--text-mute); line-height: 1.4; }
 		.ach-item .ach-check { margin-left: auto; color: var(--cyan); font-size: 13px; flex: none; }
-		.ach-item.locked { opacity: 0.55; }
+		/* Locked entries stay readable: the lock icon and muted chip carry the "locked" signal, not faded text */
 		.ach-item.locked .ach-ico { background: rgba(255,255,255,0.04); border-color: var(--line); color: var(--text-mute); }
+		.ach-item.locked .ach-name { color: var(--text-soft); }
 
 		.toast-stack {
 			position: fixed;
@@ -624,14 +676,26 @@
 		}
 
 		/* ---------- Reveal animation ---------- */
-		.reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-		.reveal.in { opacity: 1; transform: translateY(0); }
+		/* Content is visible by default; the hidden start state only applies when JS is running */
+		.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+		.js .reveal.in { opacity: 1; transform: translateY(0); }
 
 		@media (max-width: 540px) {
 			.section { padding: 84px 0; }
 			.hero { padding: 80px 0 60px; }
 			.hero-meta { margin-top: 56px; }
 			.cta-row .btn { flex: 1; justify-content: center; }
+		}
+
+		/* ---------- Reduced motion ---------- */
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+			.js .reveal { opacity: 1; transform: none; }
 		}
 	</style>
 </head>
@@ -650,15 +714,25 @@
 	</nav>
 	<div class="nav-right">
 		<button class="trophy-btn" id="trophyBtn" aria-expanded="false" aria-controls="achPanel" title="Achievements">
-			<i class="fa-solid fa-trophy"></i>
+			<i class="fa-solid fa-trophy" aria-hidden="true"></i>
 			<span id="trophyCount">0/7</span>
 		</button>
 		<a class="nav-cta" href="#contact">
 			Get in touch
-			<i class="fa-solid fa-arrow-right" style="font-size:11px"></i>
+			<i class="fa-solid fa-arrow-right" style="font-size:11px" aria-hidden="true"></i>
 		</a>
+		<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+			<i class="fa-solid fa-bars" aria-hidden="true"></i>
+		</button>
 	</div>
 </header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Site sections" hidden>
+	<a href="#work">Work</a>
+	<a href="#expertise">Expertise</a>
+	<a href="#about">About</a>
+	<a href="#contact">Contact</a>
+</nav>
 
 <div class="ach-panel" id="achPanel" role="dialog" aria-label="Achievements" hidden>
 	<div class="ach-panel-head">
@@ -776,7 +850,7 @@
 		<div class="projects-grid">
 
 			<a href="#" class="project project-large reveal">
-				<div class="project-img"><img src="assets/projects/lockanddoor.png" alt="Prestige Lock and Door"></div>
+				<div class="project-img"><img src="assets/projects/lockanddoor.webp" alt="Prestige Lock and Door" loading="lazy" decoding="async"></div>
 				<div class="project-body">
 					<div class="project-meta">
 						<span class="year">2025 · Group project</span>
@@ -794,12 +868,11 @@
 						<span class="stack-pill">AI / OCR</span>
 						<span class="stack-pill">React</span>
 					</div>
-					<!--					<span class="project-link">View case study <i class="fa-solid fa-arrow-right"></i></span>-->
 				</div>
 			</a>
 
 			<a href="genshin-build-guide.html" class="project reveal">
-				<div class="project-img"><img src="assets/projects/genshinproject.png" alt="Genshin Impact build guide creator"></div>
+				<div class="project-img"><img src="assets/projects/genshinproject.webp" alt="Genshin Impact build guide creator" loading="lazy" decoding="async"></div>
 				<div class="project-body">
 					<div class="project-meta">
 						<span class="year">2024 · With Chris Udey</span>
@@ -817,7 +890,7 @@
 			</a>
 
 			<a href="math-card-games.html" class="project reveal">
-				<div class="project-img"><img src="assets/projects/cardgame.png" alt="Card Game Website"></div>
+				<div class="project-img"><img src="assets/projects/cardgame.webp" alt="Card Game Website" loading="lazy" decoding="async"></div>
 				<div class="project-body">
 					<div class="project-meta">
 						<span class="year">2025 · COSA 195</span>
@@ -914,11 +987,35 @@
 </footer>
 
 <script>
-	// Reveal-on-scroll
-	const io = new IntersectionObserver((entries) => {
-		entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-	}, { threshold: 0.12 });
-	document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+	// Reveal-on-scroll — if IntersectionObserver is unavailable, show everything immediately
+	if ('IntersectionObserver' in window) {
+		const io = new IntersectionObserver((entries) => {
+			entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+		}, { threshold: 0.12 });
+		document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+	} else {
+		document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+	}
+
+	// Mobile menu
+	const menuBtn = document.getElementById('menuBtn');
+	const mobileMenu = document.getElementById('mobileMenu');
+	menuBtn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		mobileMenu.hidden = !mobileMenu.hidden;
+		menuBtn.setAttribute('aria-expanded', String(!mobileMenu.hidden));
+	});
+	mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+		mobileMenu.hidden = true;
+		menuBtn.setAttribute('aria-expanded', 'false');
+	}));
+	document.addEventListener('click', (e) => {
+		if (!mobileMenu.hidden && !mobileMenu.contains(e.target)) {
+			mobileMenu.hidden = true;
+			menuBtn.setAttribute('aria-expanded', 'false');
+		}
+	});
+	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { mobileMenu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
 
 	// ---------- Achievements ----------
 	const ACHIEVEMENTS = {
@@ -947,7 +1044,7 @@
 	function renderAchievements() {
 		trophyCount.textContent = unlocked.size + '/' + ACH_TOTAL;
 		achProgressText.textContent = unlocked.size + ' of ' + ACH_TOTAL;
-		achBarFill.style.width = (unlocked.size / ACH_TOTAL * 100) + '%';
+		achBarFill.style.transform = 'scaleX(' + (unlocked.size / ACH_TOTAL) + ')';
 		achList.innerHTML = Object.entries(ACHIEVEMENTS).map(([id, a]) => {
 			const got = unlocked.has(id);
 			return '<li class="ach-item ' + (got ? '' : 'locked') + '">'

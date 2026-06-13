@@ -1,0 +1,8 @@
+# IDE
+.idea/
+
+# Impeccable design skill + generated context (local only, not for GitHub)
+.github/skills/
+.impeccable/
+PRODUCT.md
+DESIGN.md

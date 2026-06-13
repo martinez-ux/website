@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script>document.documentElement.classList.add('js');</script>
 	<title>Math Card Games — Jorge Martinez</title>
 	<meta name="description" content="Game Hub — a single-page web app of math card games for kids. Twenty Total and Memory Match with accounts, statistics, and a credit shop. Built in vanilla JavaScript with Vite, Navigo and Bootstrap." />
 	<meta name="theme-color" content="#0A0610" />
@@ -12,8 +13,9 @@
 	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23A855F7'/%3E%3Cstop offset='.5' stop-color='%23EC4899'/%3E%3Cstop offset='1' stop-color='%23FFD86B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='800' text-anchor='middle' fill='%2310071A'%3EJM%3C/text%3E%3C/svg%3E" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 	<style>
 		:root {
 			--ink-0:#0A0610;
@@ -25,7 +27,7 @@
 			--line-strong:rgba(255,255,255,0.14);
 			--text:#F4F1FA;
 			--text-soft:#B6ADC9;
-			--text-mute:#7C7390;
+			--text-mute:#8B82A0;
 			--purple:#8C42FF;
 			--purple-soft:#A87EFF;
 			--purple-deep:#5A2A82;
@@ -67,9 +69,9 @@
 			inset: 0;
 			z-index: -2;
 			background:
-					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.28), transparent 60%),
-					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.18), transparent 60%),
-					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.10), transparent 60%);
+					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.18), transparent 60%),
+					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.11), transparent 60%),
+					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.06), transparent 60%);
 			pointer-events: none;
 		}
 		body::after {
@@ -88,6 +90,9 @@
 
 		a { color: inherit; text-decoration: none; }
 		a:hover { color: var(--purple-soft); }
+
+		/* Visible keyboard focus — violet ring on every interactive element */
+		:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 3px; }
 
 		.container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 
@@ -144,6 +149,54 @@
 		.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(255,255,255,0.4); }
 		@media (max-width: 720px) { .nav-links { display: none; } }
 
+		/* ---------- Mobile menu ---------- */
+		.menu-btn {
+			display: none;
+			width: 44px;
+			height: 44px;
+			align-items: center;
+			justify-content: center;
+			border-radius: 999px;
+			background: rgba(255,255,255,0.04);
+			border: 1px solid var(--line);
+			color: var(--text);
+			font-size: 15px;
+			cursor: pointer;
+			transition: background .2s var(--ease);
+		}
+		.menu-btn:hover { background: rgba(255,255,255,0.08); }
+		@media (max-width: 720px) { .menu-btn { display: inline-flex; } }
+		.mobile-menu {
+			position: fixed;
+			top: 78px;
+			left: 16px;
+			right: 16px;
+			z-index: 60;
+			background: rgba(15, 9, 24, 0.92);
+			backdrop-filter: blur(24px) saturate(140%);
+			-webkit-backdrop-filter: blur(24px) saturate(140%);
+			border: 1px solid var(--line-strong);
+			border-radius: var(--rad-md);
+			padding: 10px;
+			box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
+		}
+		.mobile-menu a {
+			display: flex;
+			align-items: center;
+			min-height: 48px;
+			padding: 12px 16px;
+			border-radius: 10px;
+			font-size: 16px;
+			color: var(--text-soft);
+		}
+		.mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+
+		/* Touch devices get full-size targets without changing the desktop look */
+		@media (pointer: coarse) {
+			.nav-links a { padding: 12px 16px; }
+			.nav-cta { min-height: 44px; }
+		}
+
 		/* ---------- Hero ---------- */
 		.hero { padding: 100px 0 70px; position: relative; }
 		.hero-eyebrow {
@@ -181,10 +234,7 @@
 			font-family: var(--font-serif);
 			font-style: italic;
 			font-weight: 400;
-			background: var(--grad-accent);
-			-webkit-background-clip: text;
-			background-clip: text;
-			color: transparent;
+			color: var(--purple-soft);
 			letter-spacing: -0.01em;
 		}
 		.hero-lede {
@@ -589,14 +639,26 @@
 		.footer-mark { color: var(--text); }
 
 		/* ---------- Reveal animation ---------- */
-		.reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-		.reveal.in { opacity: 1; transform: translateY(0); }
+		/* Content is visible by default; the hidden start state only applies when JS is running */
+		.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+		.js .reveal.in { opacity: 1; transform: translateY(0); }
 
 		@media (max-width: 540px) {
 			.section { padding: 80px 0; }
 			.hero { padding: 72px 0 48px; }
 			.hero-meta { margin-top: 48px; }
 			.cta-row .btn { flex: 1; justify-content: center; }
+		}
+
+		/* ---------- Reduced motion ---------- */
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+			.js .reveal { opacity: 1; transform: none; }
 		}
 	</style>
 </head>
@@ -614,10 +676,21 @@
 		<a href="#architecture">Architecture</a>
 	</nav>
 	<a class="nav-cta" href="index.html#work">
-		<i class="fa-solid fa-arrow-left" style="font-size:11px"></i>
+		<i class="fa-solid fa-arrow-left" style="font-size:11px" aria-hidden="true"></i>
 		Back to portfolio
 	</a>
+	<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+		<i class="fa-solid fa-bars" aria-hidden="true"></i>
+	</button>
 </header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Page sections" hidden>
+	<a href="#overview">Overview</a>
+	<a href="#features">Features</a>
+	<a href="#stack">Stack</a>
+	<a href="#architecture">Architecture</a>
+	<a href="index.html#work">← Back to portfolio</a>
+</nav>
 
 <!-- ============ HERO ============ -->
 <section id="top" class="hero">
@@ -666,7 +739,7 @@
 <div class="showcase">
 	<div class="container">
 		<div class="showcase-frame reveal">
-			<img src="assets/projects/cardgame.png" alt="Game Hub — math card games for kids, showing the card table">
+			<img src="assets/projects/cardgame.webp" alt="Game Hub — math card games for kids, showing the card table" decoding="async">
 		</div>
 	</div>
 </div>
@@ -919,27 +992,27 @@
 		</div>
 		<div class="gallery-grid">
 			<figure class="reveal">
-				<img src="assets/projects/cardgame-hub.png" alt="Game Hub landing page with Twenty Total and Memory" loading="lazy">
+				<img src="assets/projects/cardgame-hub.webp" alt="Game Hub landing page with Twenty Total and Memory" loading="lazy">
 				<figcaption>Game Hub — pick a game; credits and pending rewards up top</figcaption>
 			</figure>
 			<figure class="reveal">
-				<img src="assets/projects/cardgame-twenty-total.png" alt="Twenty Total mid-game with scoring summary and timer" loading="lazy">
+				<img src="assets/projects/cardgame-twenty-total.webp" alt="Twenty Total mid-game with scoring summary and timer" loading="lazy">
 				<figcaption>Twenty Total — a live round with the clock running</figcaption>
 			</figure>
 			<figure class="reveal">
-				<img src="assets/projects/cardgame-question.png" alt="Bonus math question popup answered correctly for credits" loading="lazy">
+				<img src="assets/projects/cardgame-question.webp" alt="Bonus math question popup answered correctly for credits" loading="lazy">
 				<figcaption>Bonus question — answer right, earn credits (+2 banked here)</figcaption>
 			</figure>
 			<figure class="reveal">
-				<img src="assets/projects/cardgame-memory.png" alt="Memory Match board with two cards flipped" loading="lazy">
+				<img src="assets/projects/cardgame-memory.webp" alt="Memory Match board with two cards flipped" loading="lazy">
 				<figcaption>Memory Match — a 16-card board mid-flip</figcaption>
 			</figure>
 			<figure class="reveal">
-				<img src="assets/projects/cardgame-credit-shop.png" alt="Credit shop with unlockable card backs and color themes" loading="lazy">
+				<img src="assets/projects/cardgame-credit-shop.webp" alt="Credit shop with unlockable card backs and color themes" loading="lazy">
 				<figcaption>Credit shop — unlockable card backs and colour themes</figcaption>
 			</figure>
 			<figure class="reveal">
-				<img src="assets/projects/cardgame-stats.png" alt="Statistics page with per-game scoreboard and match history" loading="lazy">
+				<img src="assets/projects/cardgame-stats.webp" alt="Statistics page with per-game scoreboard and match history" loading="lazy">
 				<figcaption>Statistics — per-game scoreboards with match history</figcaption>
 			</figure>
 		</div>
@@ -976,11 +1049,35 @@
 </footer>
 
 <script>
-	// Reveal-on-scroll, same behavior as the home page
-	const io = new IntersectionObserver((entries) => {
-		entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-	}, { threshold: 0.12 });
-	document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+	// Reveal-on-scroll — if IntersectionObserver is unavailable, show everything immediately
+	if ('IntersectionObserver' in window) {
+		const io = new IntersectionObserver((entries) => {
+			entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+		}, { threshold: 0.12 });
+		document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+	} else {
+		document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+	}
+
+	// Mobile menu
+	const menuBtn = document.getElementById('menuBtn');
+	const mobileMenu = document.getElementById('mobileMenu');
+	menuBtn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		mobileMenu.hidden = !mobileMenu.hidden;
+		menuBtn.setAttribute('aria-expanded', String(!mobileMenu.hidden));
+	});
+	mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+		mobileMenu.hidden = true;
+		menuBtn.setAttribute('aria-expanded', 'false');
+	}));
+	document.addEventListener('click', (e) => {
+		if (!mobileMenu.hidden && !mobileMenu.contains(e.target)) {
+			mobileMenu.hidden = true;
+			menuBtn.setAttribute('aria-expanded', 'false');
+		}
+	});
+	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { mobileMenu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
 </script>
 </body>
 </html>
