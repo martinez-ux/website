@@ -3,669 +3,22 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<script>document.documentElement.classList.add('js');</script>
-	<title>Genshin Build Guide — Jorge Martinez</title>
-	<meta name="description" content="Genshin Build Guide — a full-stack web application for creating and sharing Genshin Impact character build guides. Built with FastAPI, Next.js, TypeScript and SQLite." />
-	<meta name="theme-color" content="#0A0610" />
-	<meta property="og:title" content="Genshin Build Guide — Jorge Martinez" />
+	<title>Genshin Build Guide | Jorge Martinez</title>
+	<meta name="description" content="Genshin Build Guide is a full-stack web application for creating and sharing Genshin Impact character build guides. Built with FastAPI, Next.js, TypeScript and SQLite." />
+	<meta name="theme-color" content="#ffffff" />
+	<meta property="og:title" content="Genshin Build Guide | Jorge Martinez" />
 	<meta property="og:description" content="A full-stack CRUD app for creating and sharing Genshin Impact character build guides. FastAPI + Next.js." />
 	<meta property="og:type" content="article" />
-	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23A855F7'/%3E%3Cstop offset='.5' stop-color='%23EC4899'/%3E%3Cstop offset='1' stop-color='%23FFD86B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='800' text-anchor='middle' fill='%2310071A'%3EJM%3C/text%3E%3C/svg%3E" />
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231D4E74'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-size='25' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EJM%3C/text%3E%3C/svg%3E" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
-	<style>
-		:root {
-			--ink-0:#0A0610;
-			--ink-1:#0F0918;
-			--ink-2:#171024;
-			--ink-3:#211632;
-			--ink-4:#2D1F44;
-			--line:rgba(255,255,255,0.08);
-			--line-strong:rgba(255,255,255,0.14);
-			--text:#F4F1FA;
-			--text-soft:#B6ADC9;
-			--text-mute:#8B82A0;
-			--purple:#8C42FF;
-			--purple-soft:#A87EFF;
-			--purple-deep:#5A2A82;
-			--gold:#FFD86B;
-			--gold-deep:#D4A017;
-			--cyan:#30D5C8;
-			--cyan-deep:#1FA89C;
-			--pink:#EC4899;
-			--violet:#8B5CF6;
-			--grad-accent: linear-gradient(135deg, #A855F7 0%, #EC4899 50%, #FFD86B 100%);
-			--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-			--font-mono: 'Geist Mono', ui-monospace, monospace;
-			--font-serif: 'Instrument Serif', Georgia, serif;
-			--rad-sm: 8px;
-			--rad-md: 14px;
-			--rad-lg: 22px;
-			--maxw: 1180px;
-			--ease: cubic-bezier(.2, .7, .2, 1);
-		}
-
-		* { box-sizing: border-box; }
-		html, body { margin: 0; padding: 0; }
-		html { scroll-behavior: smooth; }
-		body {
-			background: var(--ink-0);
-			color: var(--text);
-			font-family: var(--font-sans);
-			font-weight: 400;
-			font-size: 16px;
-			line-height: 1.6;
-			-webkit-font-smoothing: antialiased;
-			overflow-x: hidden;
-		}
-
-		/* Atmospheric backdrop — soft glows and a faint grid, same as the home page */
-		body::before {
-			content: "";
-			position: fixed;
-			inset: 0;
-			z-index: -2;
-			background:
-					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.18), transparent 60%),
-					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.11), transparent 60%),
-					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.06), transparent 60%);
-			pointer-events: none;
-		}
-		body::after {
-			content: "";
-			position: fixed;
-			inset: 0;
-			z-index: -1;
-			background-image:
-					linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-					linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-			background-size: 56px 56px;
-			mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
-			-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
-			pointer-events: none;
-		}
-
-		a { color: inherit; text-decoration: none; }
-		a:hover { color: var(--purple-soft); }
-
-		/* Visible keyboard focus — violet ring on every interactive element */
-		:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 3px; }
-
-		.container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
-
-		/* ---------- Top nav ---------- */
-		.nav {
-			position: sticky;
-			top: 14px;
-			z-index: 50;
-			margin: 14px auto 0;
-			max-width: calc(var(--maxw) - 56px);
-			padding: 10px 14px 10px 22px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			border-radius: 999px;
-			background: rgba(15, 9, 24, 0.6);
-			backdrop-filter: blur(20px) saturate(140%);
-			-webkit-backdrop-filter: blur(20px) saturate(140%);
-			border: 1px solid var(--line);
-		}
-		.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
-		.brand-mark {
-			width: 28px; height: 28px;
-			border-radius: 8px;
-			background: var(--grad-accent);
-			display: flex; align-items: center; justify-content: center;
-			color: #10071A;
-			font-weight: 800;
-			font-size: 13px;
-			letter-spacing: -0.02em;
-			box-shadow: 0 6px 16px -4px rgba(168, 126, 255, 0.6);
-		}
-		.nav-links { display: flex; gap: 4px; }
-		.nav-links a {
-			padding: 8px 14px;
-			border-radius: 999px;
-			font-size: 14px;
-			color: var(--text-soft);
-			transition: color .2s var(--ease), background .2s var(--ease);
-		}
-		.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-		.nav-cta {
-			padding: 9px 16px 9px 18px;
-			border-radius: 999px;
-			background: var(--text);
-			color: var(--ink-0) !important;
-			font-size: 14px;
-			font-weight: 500;
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			transition: transform .2s var(--ease), box-shadow .2s var(--ease);
-		}
-		.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(255,255,255,0.4); }
-		@media (max-width: 720px) { .nav-links { display: none; } }
-
-		/* ---------- Mobile menu ---------- */
-		.menu-btn {
-			display: none;
-			width: 44px;
-			height: 44px;
-			align-items: center;
-			justify-content: center;
-			border-radius: 999px;
-			background: rgba(255,255,255,0.04);
-			border: 1px solid var(--line);
-			color: var(--text);
-			font-size: 15px;
-			cursor: pointer;
-			transition: background .2s var(--ease);
-		}
-		.menu-btn:hover { background: rgba(255,255,255,0.08); }
-		@media (max-width: 720px) { .menu-btn { display: inline-flex; } }
-		.mobile-menu {
-			position: fixed;
-			top: 78px;
-			left: 16px;
-			right: 16px;
-			z-index: 60;
-			background: rgba(15, 9, 24, 0.92);
-			backdrop-filter: blur(24px) saturate(140%);
-			-webkit-backdrop-filter: blur(24px) saturate(140%);
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-md);
-			padding: 10px;
-			box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
-		}
-		.mobile-menu a {
-			display: flex;
-			align-items: center;
-			min-height: 48px;
-			padding: 12px 16px;
-			border-radius: 10px;
-			font-size: 16px;
-			color: var(--text-soft);
-		}
-		.mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-
-		/* Touch devices get full-size targets without changing the desktop look */
-		@media (pointer: coarse) {
-			.nav-links a { padding: 12px 16px; }
-			.nav-cta { min-height: 44px; }
-		}
-
-		/* ---------- Hero ---------- */
-		.hero { padding: 100px 0 70px; position: relative; }
-		.hero-eyebrow {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			padding: 6px 14px 6px 8px;
-			border-radius: 999px;
-			background: rgba(255,255,255,0.04);
-			border: 1px solid var(--line);
-			font-size: 13px;
-			color: var(--text-soft);
-			font-family: var(--font-mono);
-			margin-bottom: 28px;
-		}
-		.hero-eyebrow::before {
-			content: "";
-			width: 8px; height: 8px; border-radius: 50%;
-			background: var(--gold);
-			box-shadow: 0 0 12px var(--gold);
-			animation: pulse 2s ease-in-out infinite;
-		}
-		@keyframes pulse { 50% { opacity: 0.5; transform: scale(0.85); } }
-
-		.hero h1 {
-			font-family: var(--font-sans);
-			font-size: clamp(42px, 7vw, 84px);
-			line-height: 0.98;
-			letter-spacing: -0.04em;
-			font-weight: 600;
-			margin: 0 0 28px;
-			max-width: 16ch;
-		}
-		.hero h1 .accent {
-			font-family: var(--font-serif);
-			font-style: italic;
-			font-weight: 400;
-			color: var(--purple-soft);
-			letter-spacing: -0.01em;
-		}
-		.hero-lede {
-			font-size: 20px;
-			line-height: 1.5;
-			color: var(--text-soft);
-			max-width: 58ch;
-			margin: 0 0 40px;
-		}
-		.hero-lede strong { color: var(--text); font-weight: 500; }
-
-		.cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-		.btn {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			padding: 14px 22px;
-			border-radius: 12px;
-			font-family: var(--font-sans);
-			font-size: 15px;
-			font-weight: 500;
-			letter-spacing: -0.005em;
-			cursor: pointer;
-			border: 0;
-			transition: transform .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
-		}
-		.btn-primary {
-			background: var(--text);
-			color: var(--ink-0);
-			box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px -12px rgba(244,241,250,0.3);
-		}
-		.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 16px 40px -12px rgba(244,241,250,0.4); }
-		.btn-ghost {
-			background: rgba(255,255,255,0.04);
-			color: var(--text);
-			border: 1px solid var(--line-strong);
-		}
-		.btn-ghost:hover { background: rgba(255,255,255,0.08); }
-		.btn .arrow { transition: transform .2s var(--ease); }
-		.btn:hover .arrow { transform: translateX(3px); }
-
-		/* ---------- Hero meta strip ---------- */
-		.hero-meta {
-			margin-top: 64px;
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 0;
-			border-top: 1px solid var(--line);
-			border-bottom: 1px solid var(--line);
-		}
-		.hero-meta > div {
-			padding: 24px 0;
-			border-right: 1px solid var(--line);
-		}
-		.hero-meta > div:last-child { border-right: 0; }
-		.hero-meta > div:not(:first-child) { padding-left: 24px; }
-		.meta-label {
-			font-family: var(--font-mono);
-			font-size: 11px;
-			text-transform: uppercase;
-			letter-spacing: 0.12em;
-			color: var(--text-mute);
-			margin-bottom: 8px;
-		}
-		.meta-value { font-size: 16px; color: var(--text); font-weight: 500; }
-		@media (max-width: 720px) {
-			.hero-meta { grid-template-columns: 1fr 1fr; }
-			.hero-meta > div:nth-child(2) { border-right: 0; }
-			.hero-meta > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-		}
-
-		/* ---------- Showcase image ---------- */
-		.showcase { padding: 20px 0 0; }
-		.showcase-frame {
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-lg);
-			overflow: hidden;
-			background: var(--ink-2);
-			box-shadow: 0 40px 100px -40px rgba(140, 66, 255, 0.35);
-		}
-		.showcase-frame img { width: 100%; display: block; }
-
-		/* ---------- Section header ---------- */
-		.section { padding: 110px 0; }
-		.section-head {
-			display: flex;
-			align-items: end;
-			justify-content: space-between;
-			gap: 40px;
-			margin-bottom: 56px;
-			flex-wrap: wrap;
-		}
-		.section-tag {
-			font-family: var(--font-mono);
-			font-size: 12px;
-			text-transform: uppercase;
-			letter-spacing: 0.18em;
-			color: var(--purple-soft);
-			margin: 0 0 14px;
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-		}
-		.section-tag::before {
-			content: ""; width: 24px; height: 1px; background: var(--purple-soft);
-		}
-		.section h2 {
-			font-size: clamp(36px, 5vw, 56px);
-			line-height: 1.02;
-			letter-spacing: -0.03em;
-			font-weight: 500;
-			margin: 0;
-			max-width: 18ch;
-		}
-		.section h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--purple-soft); }
-		.section-sub {
-			max-width: 36ch;
-			color: var(--text-soft);
-			font-size: 16px;
-			line-height: 1.55;
-			margin: 0;
-		}
-
-		/* ---------- Overview prose ---------- */
-		.overview-grid {
-			display: grid;
-			grid-template-columns: 1.2fr 1fr;
-			gap: 56px;
-			align-items: start;
-		}
-		@media (max-width: 880px) { .overview-grid { grid-template-columns: 1fr; gap: 40px; } }
-		.overview-body {
-			font-size: 19px;
-			line-height: 1.55;
-			color: var(--text-soft);
-			letter-spacing: -0.005em;
-		}
-		.overview-body p { margin: 0 0 22px; }
-		.overview-body p:last-child { margin: 0; }
-		.overview-body strong { color: var(--text); font-weight: 500; }
-
-		.flow-card {
-			background: linear-gradient(180deg, rgba(168, 126, 255, 0.08), rgba(255,255,255,0.02));
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-lg);
-			padding: 30px 28px;
-		}
-		.flow-card h3 {
-			font-family: var(--font-serif);
-			font-style: italic;
-			font-weight: 400;
-			font-size: 26px;
-			letter-spacing: -0.02em;
-			margin: 0 0 18px;
-		}
-		.flow-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-		.flow-list li {
-			display: flex;
-			align-items: flex-start;
-			gap: 14px;
-			padding: 14px 16px;
-			background: rgba(0,0,0,0.25);
-			border: 1px solid var(--line);
-			border-radius: 12px;
-			font-size: 14.5px;
-			color: var(--text-soft);
-			line-height: 1.5;
-		}
-		.flow-list .num {
-			flex: none;
-			width: 26px; height: 26px;
-			border-radius: 8px;
-			display: flex; align-items: center; justify-content: center;
-			background: rgba(140, 66, 255, 0.15);
-			border: 1px solid rgba(168, 126, 255, 0.3);
-			color: var(--purple-soft);
-			font-family: var(--font-mono);
-			font-size: 12px;
-			margin-top: 1px;
-		}
-		.flow-list strong { color: var(--text); font-weight: 500; }
-
-		/* ---------- Feature cards ---------- */
-		.feature-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 16px;
-		}
-		@media (max-width: 880px) { .feature-grid { grid-template-columns: 1fr; } }
-		.exp-card {
-			padding: 32px 28px 30px;
-			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			position: relative;
-			overflow: hidden;
-			transition: transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
-		}
-		.exp-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
-		.exp-card .ico {
-			width: 44px; height: 44px;
-			border-radius: 12px;
-			display: flex; align-items: center; justify-content: center;
-			background: rgba(140, 66, 255, 0.12);
-			border: 1px solid rgba(168, 126, 255, 0.25);
-			color: var(--purple-soft);
-			font-size: 18px;
-			margin-bottom: 22px;
-		}
-		.exp-card h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin: 0 0 10px; }
-		.exp-card p { font-size: 15px; line-height: 1.55; color: var(--text-soft); margin: 0; }
-		.exp-card .tag-row { margin-top: 18px; display: flex; gap: 6px; flex-wrap: wrap; }
-		.tag {
-			font-family: var(--font-mono);
-			font-size: 11px;
-			color: var(--text-mute);
-			padding: 3px 8px;
-			border: 1px solid var(--line);
-			border-radius: 6px;
-		}
-
-		/* ---------- Stack columns ---------- */
-		.stack-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 16px;
-		}
-		@media (max-width: 880px) { .stack-grid { grid-template-columns: 1fr; } }
-		.stack-col {
-			padding: 28px;
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-		}
-		.stack-col .col-label {
-			font-family: var(--font-mono);
-			font-size: 11px;
-			text-transform: uppercase;
-			letter-spacing: 0.14em;
-			color: var(--text-mute);
-			margin-bottom: 18px;
-			display: flex;
-			align-items: center;
-			gap: 10px;
-		}
-		.stack-col .col-label i { color: var(--purple-soft); font-size: 13px; }
-		.stack { display: flex; flex-wrap: wrap; gap: 8px; }
-		.stack-pill {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 8px 14px;
-			background: rgba(255,255,255,0.04);
-			border: 1px solid var(--line);
-			border-radius: 999px;
-			font-family: var(--font-mono);
-			font-size: 13px;
-			color: var(--text-soft);
-			transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
-		}
-		.stack-pill i { font-size: 14px; }
-		.stack-pill:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--line-strong); }
-
-		/* ---------- Data model ---------- */
-		.schema-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 16px;
-		}
-		@media (max-width: 880px) { .schema-grid { grid-template-columns: 1fr; } }
-		.schema-card {
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-			overflow: hidden;
-		}
-		.schema-card .schema-head {
-			padding: 18px 24px;
-			border-bottom: 1px solid var(--line);
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 12px;
-		}
-		.schema-card .schema-head strong { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--text); }
-		.schema-card .schema-head span {
-			font-family: var(--font-mono);
-			font-size: 10px;
-			text-transform: uppercase;
-			letter-spacing: 0.12em;
-			color: var(--gold);
-			padding: 3px 8px;
-			border: 1px solid rgba(255, 216, 107, 0.3);
-			background: rgba(255, 216, 107, 0.08);
-			border-radius: 6px;
-			white-space: nowrap;
-		}
-		.schema-card ul { list-style: none; margin: 0; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 8px; }
-		.schema-card li {
-			font-family: var(--font-mono);
-			font-size: 13px;
-			color: var(--text-soft);
-			display: flex;
-			align-items: baseline;
-			gap: 10px;
-		}
-		.schema-card li::before { content: "·"; color: var(--purple-soft); }
-		.schema-card li em { font-style: normal; color: var(--text-mute); margin-left: auto; font-size: 11.5px; }
-
-		/* ---------- Validation rules ---------- */
-		.rules-panel {
-			margin-top: 16px;
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-			padding: 28px;
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 20px;
-		}
-		@media (max-width: 880px) { .rules-panel { grid-template-columns: 1fr 1fr; } }
-		@media (max-width: 540px) { .rules-panel { grid-template-columns: 1fr; } }
-		.rule .rule-label {
-			font-family: var(--font-mono);
-			font-size: 11px;
-			text-transform: uppercase;
-			letter-spacing: 0.12em;
-			color: var(--text-mute);
-			margin-bottom: 6px;
-		}
-		.rule .rule-value { font-size: 14.5px; color: var(--text-soft); line-height: 1.5; }
-		.rule .rule-value strong { color: var(--text); font-weight: 500; }
-
-		/* ---------- Gallery ---------- */
-		.gallery-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 16px;
-		}
-		@media (max-width: 880px) { .gallery-grid { grid-template-columns: 1fr; } }
-		.gallery-grid figure {
-			margin: 0;
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			overflow: hidden;
-			background: var(--ink-2);
-			transition: transform .3s var(--ease), border-color .3s var(--ease);
-		}
-		.gallery-grid figure:hover { transform: translateY(-4px); border-color: var(--line-strong); }
-		.gallery-grid img { width: 100%; display: block; }
-		.gallery-grid figcaption {
-			padding: 14px 20px;
-			font-family: var(--font-mono);
-			font-size: 12.5px;
-			color: var(--text-soft);
-			border-top: 1px solid var(--line);
-		}
-		.gallery-grid .span-2 { grid-column: 1 / -1; }
-
-		/* ---------- Back strip ---------- */
-		.back-strip {
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-lg);
-			background: linear-gradient(180deg, rgba(168, 126, 255, 0.08), rgba(255,255,255,0.02));
-			padding: 40px 36px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 24px;
-			flex-wrap: wrap;
-			position: relative;
-			overflow: hidden;
-		}
-		.back-strip::before {
-			content: "";
-			position: absolute;
-			top: -100px; right: -100px;
-			width: 260px; height: 260px;
-			border-radius: 50%;
-			background: radial-gradient(circle, rgba(168, 126, 255, 0.35), transparent 60%);
-			pointer-events: none;
-		}
-		.back-strip h3 {
-			font-family: var(--font-serif);
-			font-style: italic;
-			font-weight: 400;
-			font-size: 30px;
-			letter-spacing: -0.02em;
-			margin: 0 0 8px;
-		}
-		.back-strip p { margin: 0; color: var(--text-soft); font-size: 15px; max-width: 44ch; }
-
-		/* ---------- Footer ---------- */
-		footer {
-			border-top: 1px solid var(--line);
-			padding: 36px 0 48px;
-			color: var(--text-mute);
-			font-size: 13px;
-			font-family: var(--font-mono);
-		}
-		footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
-		footer a:hover { color: var(--text); }
-		.footer-mark { color: var(--text); }
-
-		/* ---------- Reveal animation ---------- */
-		/* Content is visible by default; the hidden start state only applies when JS is running */
-		.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-		.js .reveal.in { opacity: 1; transform: translateY(0); }
-
-		@media (max-width: 540px) {
-			.section { padding: 80px 0; }
-			.hero { padding: 72px 0 48px; }
-			.hero-meta { margin-top: 48px; }
-			.cta-row .btn { flex: 1; justify-content: center; }
-		}
-
-		/* ---------- Reduced motion ---------- */
-		@media (prefers-reduced-motion: reduce) {
-			*, *::before, *::after {
-				animation-duration: 0.01ms !important;
-				animation-iteration-count: 1 !important;
-				transition-duration: 0.01ms !important;
-				scroll-behavior: auto !important;
-			}
-			.js .reveal { opacity: 1; transform: none; }
-		}
-	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
 <header class="nav">
+	<div class="nav-inner">
 	<a class="brand" href="index.html">
 		<div class="brand-mark">JM</div>
 		<span>Jorge Martinez</span>
@@ -677,12 +30,11 @@
 		<a href="#data">Data model</a>
 	</nav>
 	<a class="nav-cta" href="index.html#work">
-		<i class="fa-solid fa-arrow-left" style="font-size:11px" aria-hidden="true"></i>
 		Back to portfolio
 	</a>
 	<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-		<i class="fa-solid fa-bars" aria-hidden="true"></i>
 	</button>
+	</div>
 </header>
 
 <nav class="mobile-menu" id="mobileMenu" aria-label="Page sections" hidden>
@@ -690,27 +42,25 @@
 	<a href="#features">Features</a>
 	<a href="#stack">Stack</a>
 	<a href="#data">Data model</a>
-	<a href="index.html#work">← Back to portfolio</a>
+	<a href="index.html#work">Back to portfolio</a>
 </nav>
 
 <!-- ============ HERO ============ -->
 <section id="top" class="hero">
 	<div class="container">
-		<div class="hero-eyebrow">Project case study · CWEB280</div>
-		<h1>Genshin <span class="accent">Build Guide</span> creator.</h1>
+		<div class="hero-eyebrow">Project</div>
+		<h1>Genshin Build Guide creator</h1>
 		<p class="hero-lede">
 			A full-stack web application where Genshin Impact players <strong>create and share character
-			build guides</strong> — artifacts, weapons, and strategy notes — complete with image uploads,
+			build guides</strong> covering artifacts, weapons, and strategy notes, complete with image uploads,
 			an approval workflow, and authentication. Built end-to-end with <strong>FastAPI</strong> and
 			<strong>Next.js</strong>.
 		</p>
 		<div class="cta-row">
 			<a class="btn btn-primary" href="#overview">
 				See how it works
-				<i class="fa-solid fa-arrow-down arrow" style="font-size:12px"></i>
 			</a>
 			<a class="btn btn-ghost" href="index.html#work">
-				<i class="fa-solid fa-grip" style="font-size:13px"></i>
 				<span>All projects</span>
 			</a>
 		</div>
@@ -722,7 +72,7 @@
 			</div>
 			<div>
 				<div class="meta-label">Team</div>
-				<div class="meta-value">Jorge Martinez · Chris Udey</div>
+				<div class="meta-value">Jorge Martinez, Chris Udey</div>
 			</div>
 			<div>
 				<div class="meta-label">Type</div>
@@ -730,7 +80,7 @@
 			</div>
 			<div>
 				<div class="meta-label">Stack</div>
-				<div class="meta-value">FastAPI · Next.js · SQLite</div>
+				<div class="meta-value">FastAPI, Next.js, SQLite</div>
 			</div>
 		</div>
 	</div>
@@ -739,8 +89,8 @@
 <!-- ============ SCREENSHOT ============ -->
 <div class="showcase">
 	<div class="container">
-		<div class="showcase-frame reveal">
-			<img src="assets/projects/genshinproject.webp" alt="Genshin Build Guide application — character browser and guide pages" decoding="async">
+		<div class="showcase-frame">
+			<img src="assets/projects/genshinproject.webp" alt="Genshin Build Guide application showing the character browser and guide pages" decoding="async">
 		</div>
 	</div>
 </div>
@@ -748,35 +98,34 @@
 <!-- ============ OVERVIEW ============ -->
 <section id="overview" class="section">
 	<div class="container">
-		<div class="section-head reveal">
+		<div class="section-head">
 			<div>
-				<div class="section-tag">Overview</div>
-				<h2>What the app <em>does.</em></h2>
+				<h2>What the app does</h2>
 			</div>
 			<p class="section-sub">From browsing the full character roster to publishing a guide other players can learn from.</p>
 		</div>
 		<div class="overview-grid">
-			<div class="overview-body reveal">
+			<div class="overview-body">
 				<p>Genshin Build Guide is a community-style guide platform: players browse the game's
 					<strong>92 playable characters</strong>, pick one, and write a build guide covering the
 					artifacts, weapons, and strategies that make that character work.</p>
 				<p>Character data is <strong>seeded from a public Genshin Impact API</strong> into a local
 					SQLite database, so the roster is always complete without any manual data entry. Guides
 					support <strong>multiple image uploads with captions</strong>, and every new guide enters
-					a <strong>pending state</strong> until approved — keeping the public listing clean.</p>
+					a <strong>pending state</strong> until approved, which keeps the public listing clean.</p>
 				<p>Everything a user submits is <strong>validated again on the server</strong>, so bad data
 					can't sneak past the frontend, and the whole flow is covered by <strong>Cypress
 					end-to-end tests</strong> that exercise the real API.</p>
 			</div>
 
-			<aside class="flow-card reveal">
+			<aside class="flow-card">
 				<h3>A guide's journey</h3>
 				<ul class="flow-list">
 					<li><span class="num">1</span><span><strong>Browse the roster.</strong> The home page lists all 92 characters, four per page, each linking to a detail view.</span></li>
 					<li><span class="num">2</span><span><strong>Log in.</strong> JWT authentication protects the guide-creation routes; tokens expire after 24 hours.</span></li>
 					<li><span class="num">3</span><span><strong>Write the guide.</strong> Title, description, character pick, and optional JPG/PNG images with captions.</span></li>
 					<li><span class="num">4</span><span><strong>Server validates.</strong> Field lengths, formats, and file rules are enforced by Pydantic on the backend.</span></li>
-					<li><span class="num">5</span><span><strong>Pending → approved.</strong> New guides await approval before appearing in the public, paginated listing.</span></li>
+					<li><span class="num">5</span><span><strong>Pending to approved.</strong> New guides await approval before appearing in the public, paginated listing.</span></li>
 				</ul>
 			</aside>
 		</div>
@@ -786,17 +135,15 @@
 <!-- ============ FEATURES ============ -->
 <section id="features" class="section" style="padding-top:0">
 	<div class="container">
-		<div class="section-head reveal">
+		<div class="section-head">
 			<div>
-				<div class="section-tag">Features</div>
-				<h2>Built like a <em>real</em> product.</h2>
+				<h2>Features</h2>
 			</div>
-			<p class="section-sub">Small course project, production habits — auth, validation, moderation, and tests.</p>
+			<p class="section-sub">Small course project, production habits: auth, validation, moderation, and tests.</p>
 		</div>
 		<div class="feature-grid">
 
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-users"></i></div>
+			<article class="exp-card">
 				<h3>Character browser</h3>
 				<p>All 92 Genshin Impact characters, seeded automatically from a public API and browsable in a paginated grid with per-character detail pages.</p>
 				<div class="tag-row">
@@ -805,28 +152,25 @@
 				</div>
 			</article>
 
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-pen-ruler"></i></div>
+			<article class="exp-card">
 				<h3>Guide creation</h3>
-				<p>Logged-in users write build guides tied to a character — title, description, and multiple image uploads with captions for artifact and weapon setups.</p>
+				<p>Logged-in users write build guides tied to a character: title, description, and multiple image uploads with captions for artifact and weapon setups.</p>
 				<div class="tag-row">
 					<span class="tag">CRUD</span>
 					<span class="tag">Image upload</span>
 				</div>
 			</article>
 
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-clipboard-check"></i></div>
+			<article class="exp-card">
 				<h3>Approval workflow</h3>
-				<p>New guides start as “pending” and only approved guides appear in the public listing — a moderation layer built into the data model from day one.</p>
+				<p>New guides start as "pending" and only approved guides appear in the public listing, a moderation layer built into the data model from day one.</p>
 				<div class="tag-row">
 					<span class="tag">Pending</span>
 					<span class="tag">Approved</span>
 				</div>
 			</article>
 
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-key"></i></div>
+			<article class="exp-card">
 				<h3>JWT authentication</h3>
 				<p>Login issues a JSON Web Token that protects guide-creation routes. Tokens expire after 24 hours and gate the app's protected pages.</p>
 				<div class="tag-row">
@@ -835,20 +179,18 @@
 				</div>
 			</article>
 
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-shield-halved"></i></div>
+			<article class="exp-card">
 				<h3>Server-side validation</h3>
-				<p>Every field is re-validated on the backend with Pydantic, so frontend validation can't be bypassed — lengths, formats, file types, and size limits.</p>
+				<p>Every field is re-validated on the backend with Pydantic, so frontend validation can't be bypassed: lengths, formats, file types, and size limits.</p>
 				<div class="tag-row">
 					<span class="tag">Pydantic</span>
 					<span class="tag">Defense in depth</span>
 				</div>
 			</article>
 
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-vial-circle-check"></i></div>
+			<article class="exp-card">
 				<h3>End-to-end testing</h3>
-				<p>Cypress suites cover login (wrong password first), character pagination, and guide creation with invalid-then-valid inputs — against the live API.</p>
+				<p>Cypress suites cover login (wrong password first), character pagination, and guide creation with invalid-then-valid inputs, all against the live API.</p>
 				<div class="tag-row">
 					<span class="tag">Cypress</span>
 					<span class="tag">E2E</span>
@@ -857,18 +199,18 @@
 
 		</div>
 
-		<div class="rules-panel reveal">
+		<div class="rules-panel">
 			<div class="rule">
 				<div class="rule-label">Username</div>
-				<div class="rule-value"><strong>4–20 chars</strong>, alphanumeric only</div>
+				<div class="rule-value"><strong>4-20 chars</strong>, alphanumeric only</div>
 			</div>
 			<div class="rule">
 				<div class="rule-label">Title</div>
-				<div class="rule-value"><strong>4–30 chars</strong>, required</div>
+				<div class="rule-value"><strong>4-30 chars</strong>, required</div>
 			</div>
 			<div class="rule">
 				<div class="rule-label">Description</div>
-				<div class="rule-value"><strong>10–350 chars</strong>, required</div>
+				<div class="rule-value"><strong>10-350 chars</strong>, required</div>
 			</div>
 			<div class="rule">
 				<div class="rule-label">Images</div>
@@ -881,43 +223,42 @@
 <!-- ============ STACK ============ -->
 <section id="stack" class="section" style="padding-top:0">
 	<div class="container">
-		<div class="section-head reveal">
+		<div class="section-head">
 			<div>
-				<div class="section-tag">Tech stack</div>
-				<h2>What it's <em>made of.</em></h2>
+				<h2>Tech stack</h2>
 			</div>
-			<p class="section-sub">A Python API talking to a TypeScript frontend — two servers, one app.</p>
+			<p class="section-sub">A Python API talking to a TypeScript frontend: two servers, one app.</p>
 		</div>
 		<div class="stack-grid">
 
-			<div class="stack-col reveal">
-				<div class="col-label"><i class="fa-solid fa-server"></i> Backend</div>
+			<div class="stack-col">
+				<div class="col-label"> Backend</div>
 				<div class="stack">
-					<span class="stack-pill"><i class="fa-brands fa-python"></i> Python 3</span>
-					<span class="stack-pill"><i class="fa-solid fa-bolt"></i> FastAPI</span>
-					<span class="stack-pill"><i class="fa-solid fa-database"></i> SQLite</span>
-					<span class="stack-pill"><i class="fa-solid fa-layer-group"></i> SQLAlchemy</span>
-					<span class="stack-pill"><i class="fa-solid fa-check-double"></i> Pydantic</span>
-					<span class="stack-pill"><i class="fa-solid fa-key"></i> JWT</span>
+					<span class="stack-pill"> Python 3</span>
+					<span class="stack-pill"> FastAPI</span>
+					<span class="stack-pill"> SQLite</span>
+					<span class="stack-pill"> SQLAlchemy</span>
+					<span class="stack-pill"> Pydantic</span>
+					<span class="stack-pill"> JWT</span>
 				</div>
 			</div>
 
-			<div class="stack-col reveal">
-				<div class="col-label"><i class="fa-solid fa-window-maximize"></i> Frontend</div>
+			<div class="stack-col">
+				<div class="col-label"> Frontend</div>
 				<div class="stack">
-					<span class="stack-pill"><i class="fa-brands fa-react"></i> Next.js 15</span>
-					<span class="stack-pill"><i class="fa-solid fa-code"></i> TypeScript</span>
-					<span class="stack-pill"><i class="fa-solid fa-wind"></i> Tailwind CSS</span>
-					<span class="stack-pill"><i class="fa-solid fa-right-left"></i> Axios</span>
+					<span class="stack-pill"> Next.js 15</span>
+					<span class="stack-pill"> TypeScript</span>
+					<span class="stack-pill"> Tailwind CSS</span>
+					<span class="stack-pill"> Axios</span>
 				</div>
 			</div>
 
-			<div class="stack-col reveal">
-				<div class="col-label"><i class="fa-solid fa-flask"></i> Testing</div>
+			<div class="stack-col">
+				<div class="col-label"> Testing</div>
 				<div class="stack">
-					<span class="stack-pill"><i class="fa-solid fa-vial"></i> Cypress E2E</span>
-					<span class="stack-pill"><i class="fa-brands fa-chrome"></i> Real-browser runs</span>
-					<span class="stack-pill"><i class="fa-solid fa-plug"></i> Live API required</span>
+					<span class="stack-pill"> Cypress E2E</span>
+					<span class="stack-pill"> Real-browser runs</span>
+					<span class="stack-pill"> Live API required</span>
 				</div>
 			</div>
 
@@ -928,16 +269,15 @@
 <!-- ============ DATA MODEL ============ -->
 <section id="data" class="section" style="padding-top:0">
 	<div class="container">
-		<div class="section-head reveal">
+		<div class="section-head">
 			<div>
-				<div class="section-tag">Data model</div>
-				<h2>Three tables, <em>one</em> story.</h2>
+				<h2>Data model</h2>
 			</div>
 			<p class="section-sub">Reference data seeded once, user content moderated, uploads linked per guide.</p>
 		</div>
 		<div class="schema-grid">
 
-			<div class="schema-card reveal">
+			<div class="schema-card">
 				<div class="schema-head">
 					<strong>Characters</strong>
 					<span>Seeded</span>
@@ -950,20 +290,20 @@
 				</ul>
 			</div>
 
-			<div class="schema-card reveal">
+			<div class="schema-card">
 				<div class="schema-head">
 					<strong>BuildGuides</strong>
 					<span>User created</span>
 				</div>
 				<ul>
 					<li>username, title <em>validated</em></li>
-					<li>description <em>10–350 chars</em></li>
-					<li>character_id <em>FK → Characters</em></li>
+					<li>description <em>10-350 chars</em></li>
+					<li>character_id <em>FK -> Characters</em></li>
 					<li>status <em>pending / approved</em></li>
 				</ul>
 			</div>
 
-			<div class="schema-card reveal">
+			<div class="schema-card">
 				<div class="schema-head">
 					<strong>Uploads</strong>
 					<span>Optional</span>
@@ -971,8 +311,8 @@
 				<ul>
 					<li>image file <em>JPG / PNG</em></li>
 					<li>caption <em>per image</em></li>
-					<li>guide_id <em>FK → BuildGuides</em></li>
-					<li>many per guide <em>1‑to‑many</em></li>
+					<li>guide_id <em>FK -> BuildGuides</em></li>
+					<li>many per guide <em>1-to-many</em></li>
 				</ul>
 			</div>
 
@@ -983,33 +323,32 @@
 <!-- ============ GALLERY ============ -->
 <section id="gallery" class="section" style="padding-top:0">
 	<div class="container">
-		<div class="section-head reveal">
+		<div class="section-head">
 			<div>
-				<div class="section-tag">In action</div>
-				<h2>Straight from <em>the app.</em></h2>
+				<h2>Screenshots</h2>
 			</div>
-			<p class="section-sub">Captured from the app running locally — both servers live, real seeded data.</p>
+			<p class="section-sub">Captured from the app running locally, with both servers live and real seeded data.</p>
 		</div>
 		<div class="gallery-grid">
-			<figure class="reveal span-2">
-				<img src="assets/projects/genshin-home.webp" alt="Home page — paginated character browser" loading="lazy">
-				<figcaption>Home — the character browser, seeded from the public Genshin API</figcaption>
+			<figure class="span-2">
+				<img src="assets/projects/genshin-home.webp" alt="Home page with the paginated character browser" loading="lazy">
+				<figcaption>Home: the character browser, seeded from the public Genshin API</figcaption>
 			</figure>
-			<figure class="reveal">
-				<img src="assets/projects/genshin-guides.webp" alt="Guides page — create form with validation hints and published guides" loading="lazy">
-				<figcaption>Guides — the create form with its validation hints, published guides below</figcaption>
+			<figure>
+				<img src="assets/projects/genshin-guides.webp" alt="Guides page with the create form, validation hints, and published guides" loading="lazy">
+				<figcaption>Guides: the create form with its validation hints, published guides below</figcaption>
 			</figure>
-			<figure class="reveal">
-				<img src="assets/projects/genshin-domains.webp" alt="Domains page — domains and the artifacts they reward" loading="lazy">
-				<figcaption>Domains — browse farming domains and the artifacts they reward</figcaption>
+			<figure>
+				<img src="assets/projects/genshin-domains.webp" alt="Domains page listing domains and the artifacts they reward" loading="lazy">
+				<figcaption>Domains: browse farming domains and the artifacts they reward</figcaption>
 			</figure>
-			<figure class="reveal">
-				<img src="assets/projects/genshin-review.webp" alt="Review queue — pending guides with approve and reject actions" loading="lazy">
-				<figcaption>Review queue — approve or reject pending guides before they go public</figcaption>
+			<figure>
+				<img src="assets/projects/genshin-review.webp" alt="Review queue showing pending guides with approve and reject actions" loading="lazy">
+				<figcaption>Review queue: approve or reject pending guides before they go public</figcaption>
 			</figure>
-			<figure class="reveal">
+			<figure>
 				<img src="assets/projects/genshin-login.webp" alt="Login page with JWT auth and Google sign-in" loading="lazy">
-				<figcaption>Login — JWT authentication, with Google sign-in wired up</figcaption>
+				<figcaption>Login: JWT authentication, with Google sign-in wired up</figcaption>
 			</figure>
 		</div>
 	</div>
@@ -1018,18 +357,16 @@
 <!-- ============ BACK STRIP ============ -->
 <section class="section" style="padding-top:0">
 	<div class="container">
-		<div class="back-strip reveal">
+		<div class="back-strip">
 			<div>
 				<h3>Curious about the rest?</h3>
-				<p>This is one of several projects I've shipped — head back to the portfolio for the others, or get in touch.</p>
+				<p>This is one of several projects I've shipped. Head back to the portfolio for the others, or get in touch.</p>
 			</div>
 			<div class="cta-row">
 				<a class="btn btn-primary" href="index.html#work">
 					Back to projects
-					<i class="fa-solid fa-arrow-right arrow" style="font-size:12px"></i>
 				</a>
 				<a class="btn btn-ghost" href="index.html#contact">
-					<i class="fa-solid fa-envelope" style="font-size:13px"></i>
 					<span>Contact</span>
 				</a>
 			</div>
@@ -1039,41 +376,38 @@
 
 <footer>
 	<div class="container">
-		<div><span class="footer-mark">© 2026 Jorge Martinez.</span> &nbsp;Built in Saskatoon.</div>
-		<div><a href="index.html">← Back to home</a></div>
+		<div><span class="footer-mark">&copy; 2026 Jorge Martinez.</span> &nbsp;Built in Saskatoon.</div>
+		<div><a href="index.html">Back to home</a></div>
 	</div>
 </footer>
 
 <script>
-	// Reveal-on-scroll — if IntersectionObserver is unavailable, show everything immediately
-	if ('IntersectionObserver' in window) {
-		const io = new IntersectionObserver((entries) => {
-			entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-		}, { threshold: 0.12 });
-		document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-	} else {
-		document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-	}
+	// Mobile menu toggle - the only script on the page.
+	(function () {
+		var btn = document.getElementById('menuBtn');
+		var menu = document.getElementById('mobileMenu');
 
-	// Mobile menu
-	const menuBtn = document.getElementById('menuBtn');
-	const mobileMenu = document.getElementById('mobileMenu');
-	menuBtn.addEventListener('click', (e) => {
-		e.stopPropagation();
-		mobileMenu.hidden = !mobileMenu.hidden;
-		menuBtn.setAttribute('aria-expanded', String(!mobileMenu.hidden));
-	});
-	mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-		mobileMenu.hidden = true;
-		menuBtn.setAttribute('aria-expanded', 'false');
-	}));
-	document.addEventListener('click', (e) => {
-		if (!mobileMenu.hidden && !mobileMenu.contains(e.target)) {
-			mobileMenu.hidden = true;
-			menuBtn.setAttribute('aria-expanded', 'false');
+		function close() {
+			menu.hidden = true;
+			btn.setAttribute('aria-expanded', 'false');
 		}
-	});
-	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { mobileMenu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
+
+		btn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			menu.hidden = !menu.hidden;
+			btn.setAttribute('aria-expanded', String(!menu.hidden));
+		});
+
+		menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+
+		document.addEventListener('click', function (e) {
+			if (!menu.hidden && !menu.contains(e.target)) close();
+		});
+
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && !menu.hidden) { close(); btn.focus(); }
+		});
+	})();
 </script>
 </body>
 </html>

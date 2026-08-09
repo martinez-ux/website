@@ -1,11 +1,11 @@
 /* ============================================================
-   Jorge Martinez — Design System
+   Jorge Martinez - Design System
    Colors + Typography Tokens
    ============================================================
    Sourced from the personal portfolio at github.com/martinez-ux/website.
    The site's signature is a vertical purple gradient washed with
    bright accents: cyan-turquoise on CTAs, gold on hover/badges,
-   and violet→magenta on iconography.
+   and violet->magenta on iconography.
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,600&display=swap");
@@ -24,7 +24,7 @@
 
 	/* ---------- Brand palette: Gold (hover, awards, skill badges) ---------- */
 	--gold-100:    #FFF2B2;   /* sparkle highlight */
-	--gold-200:    #FFD86B;   /* primary gold — button :hover */
+	--gold-200:    #FFD86B;   /* primary gold - button :hover */
 	--gold-300:    #D4A017;   /* badge body */
 	--gold-400:    #B8860B;   /* badge border */
 	--gold-ink:    #5A2A00;   /* text on gold */
@@ -149,7 +149,7 @@
 }
 
 /* ============================================================
-   Semantic class shortcuts — lift a header/body straight onto
+   Semantic class shortcuts - lift a header/body straight onto
    any element without re-deriving the rules.
    ============================================================ */
 .t-h1 {
@@ -206,7 +206,7 @@
 }
 .t-link:hover { color: var(--cyan-200); }
 
-/* ---------- Glow text effect — used on the bold name in the hero ---------- */
+/* ---------- Glow text effect - used on the bold name in the hero ---------- */
 .glow-text {
 	background: var(--grad-glow-text);
 	background-size: 200% 100%;
@@ -220,7 +220,7 @@
 	100% { background-position: -200% 0; }
 }
 
-/* ---------- Icon gradient — used on FA icons throughout ---------- */
+/* ---------- Icon gradient - used on FA icons throughout ---------- */
 .icon-gradient {
 	background: var(--grad-icon);
 	-webkit-background-clip: text;

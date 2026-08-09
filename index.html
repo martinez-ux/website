@@ -3,1174 +3,270 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<script>document.documentElement.classList.add('js');</script>
-	<title>Jorge Martinez — Software Developer</title>
-	<meta name="description" content="Jorge Martinez — software developer and computer hardware enthusiast in Saskatoon, SK. Full-stack projects in Python, JavaScript, C# and Java. Open to junior roles for Spring 2026." />
-	<meta name="theme-color" content="#0A0610" />
-	<meta property="og:title" content="Jorge Martinez — Software Developer" />
-	<meta property="og:description" content="Full-stack developer & hardware enthusiast in Saskatoon. Open to junior roles for Spring 2026." />
+	<title>Jorge Martinez | Software Developer</title>
+	<meta name="description" content="Jorge Martinez is a software developer and computer hardware enthusiast in Saskatoon, SK. Full-stack projects in Python, JavaScript, C# and Java." />
+	<meta name="theme-color" content="#ffffff" />
+	<meta property="og:title" content="Jorge Martinez | Software Developer" />
+	<meta property="og:description" content="Full-stack developer and hardware enthusiast in Saskatoon." />
 	<meta property="og:type" content="website" />
-	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23A855F7'/%3E%3Cstop offset='.5' stop-color='%23EC4899'/%3E%3Cstop offset='1' stop-color='%23FFD86B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='800' text-anchor='middle' fill='%2310071A'%3EJM%3C/text%3E%3C/svg%3E" />
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231D4E74'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-size='25' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EJM%3C/text%3E%3C/svg%3E" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
-	<style>
-		:root {
-			--ink-0:#0A0610;
-			--ink-1:#0F0918;
-			--ink-2:#171024;
-			--ink-3:#211632;
-			--ink-4:#2D1F44;
-			--line:rgba(255,255,255,0.08);
-			--line-strong:rgba(255,255,255,0.14);
-			--text:#F4F1FA;
-			--text-soft:#B6ADC9;
-			--text-mute:#8B82A0;
-			--purple:#8C42FF;
-			--purple-soft:#A87EFF;
-			--purple-deep:#5A2A82;
-			--gold:#FFD86B;
-			--gold-deep:#D4A017;
-			--cyan:#30D5C8;
-			--cyan-deep:#1FA89C;
-			--pink:#EC4899;
-			--violet:#8B5CF6;
-			--grad-accent: linear-gradient(135deg, #A855F7 0%, #EC4899 50%, #FFD86B 100%);
-			--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-			--font-mono: 'Geist Mono', ui-monospace, monospace;
-			--font-serif: 'Instrument Serif', Georgia, serif;
-			--rad-sm: 8px;
-			--rad-md: 14px;
-			--rad-lg: 22px;
-			--maxw: 1180px;
-			--ease: cubic-bezier(.2, .7, .2, 1);
-		}
-
-		* { box-sizing: border-box; }
-		html, body { margin: 0; padding: 0; }
-		body {
-			background: var(--ink-0);
-			color: var(--text);
-			font-family: var(--font-sans);
-			font-weight: 400;
-			font-size: 16px;
-			line-height: 1.6;
-			-webkit-font-smoothing: antialiased;
-			overflow-x: hidden;
-		}
-
-		/* Atmospheric backdrop — three soft purple glows pinned and a faint grid */
-		body::before {
-			content: "";
-			position: fixed;
-			inset: 0;
-			z-index: -2;
-			background:
-					radial-gradient(60% 40% at 80% -10%, rgba(168, 126, 255, 0.18), transparent 60%),
-					radial-gradient(50% 50% at 0% 30%, rgba(140, 66, 255, 0.11), transparent 60%),
-					radial-gradient(60% 60% at 100% 100%, rgba(48, 213, 200, 0.06), transparent 60%);
-			pointer-events: none;
-		}
-		body::after {
-			content: "";
-			position: fixed;
-			inset: 0;
-			z-index: -1;
-			background-image:
-					linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-					linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-			background-size: 56px 56px;
-			mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
-			-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
-			pointer-events: none;
-		}
-
-		a { color: inherit; text-decoration: none; }
-		a:hover { color: var(--purple-soft); }
-
-		/* Visible keyboard focus — violet ring on every interactive element */
-		:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 3px; }
-
-		.container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
-
-		/* ---------- Top nav ---------- */
-		.nav {
-			position: sticky;
-			top: 14px;
-			z-index: 50;
-			margin: 14px auto 0;
-			max-width: calc(var(--maxw) - 56px);
-			padding: 10px 14px 10px 22px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			border-radius: 999px;
-			background: rgba(15, 9, 24, 0.6);
-			backdrop-filter: blur(20px) saturate(140%);
-			-webkit-backdrop-filter: blur(20px) saturate(140%);
-			border: 1px solid var(--line);
-		}
-		.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
-		.brand-mark {
-			width: 28px; height: 28px;
-			border-radius: 8px;
-			background: var(--grad-accent);
-			display: flex; align-items: center; justify-content: center;
-			color: #10071A;
-			font-weight: 800;
-			font-size: 13px;
-			letter-spacing: -0.02em;
-			box-shadow: 0 6px 16px -4px rgba(168, 126, 255, 0.6);
-		}
-		.nav-links { display: flex; gap: 4px; }
-		.nav-links a {
-			padding: 8px 14px;
-			border-radius: 999px;
-			font-size: 14px;
-			color: var(--text-soft);
-			transition: color .2s var(--ease), background .2s var(--ease);
-		}
-		.nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-		.nav-cta {
-			padding: 9px 16px 9px 18px;
-			border-radius: 999px;
-			background: var(--text);
-			color: var(--ink-0) !important;
-			font-size: 14px;
-			font-weight: 500;
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			transition: transform .2s var(--ease), box-shadow .2s var(--ease);
-		}
-		.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(255,255,255,0.4); }
-		@media (max-width: 720px) { .nav-links { display: none; } }
-
-		/* ---------- Mobile menu ---------- */
-		.menu-btn {
-			display: none;
-			width: 44px;
-			height: 44px;
-			align-items: center;
-			justify-content: center;
-			border-radius: 999px;
-			background: rgba(255,255,255,0.04);
-			border: 1px solid var(--line);
-			color: var(--text);
-			font-size: 15px;
-			cursor: pointer;
-			transition: background .2s var(--ease);
-		}
-		.menu-btn:hover { background: rgba(255,255,255,0.08); }
-		@media (max-width: 720px) { .menu-btn { display: inline-flex; } }
-		.mobile-menu {
-			position: fixed;
-			top: 78px;
-			left: 16px;
-			right: 16px;
-			z-index: 60;
-			background: rgba(15, 9, 24, 0.92);
-			backdrop-filter: blur(24px) saturate(140%);
-			-webkit-backdrop-filter: blur(24px) saturate(140%);
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-md);
-			padding: 10px;
-			box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
-		}
-		.mobile-menu a {
-			display: flex;
-			align-items: center;
-			min-height: 48px;
-			padding: 12px 16px;
-			border-radius: 10px;
-			font-size: 16px;
-			color: var(--text-soft);
-		}
-		.mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-
-		/* Touch devices get full-size targets without changing the desktop look */
-		@media (pointer: coarse) {
-			.nav-links a { padding: 12px 16px; }
-			.trophy-btn { min-height: 44px; padding: 11px 16px; }
-			.nav-cta { min-height: 44px; }
-		}
-
-		/* ---------- Hero ---------- */
-		.hero { padding: 120px 0 100px; position: relative; }
-		.hero-eyebrow {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			padding: 6px 14px 6px 8px;
-			border-radius: 999px;
-			background: rgba(255,255,255,0.04);
-			border: 1px solid var(--line);
-			font-size: 13px;
-			color: var(--text-soft);
-			font-family: var(--font-mono);
-			margin-bottom: 28px;
-		}
-		.hero-eyebrow::before {
-			content: "";
-			width: 8px; height: 8px; border-radius: 50%;
-			background: var(--cyan);
-			box-shadow: 0 0 12px var(--cyan);
-			animation: pulse 2s ease-in-out infinite;
-		}
-		@keyframes pulse { 50% { opacity: 0.5; transform: scale(0.85); } }
-
-		.hero h1 {
-			font-family: var(--font-sans);
-			font-size: clamp(48px, 8vw, 96px);
-			line-height: 0.98;
-			letter-spacing: -0.04em;
-			font-weight: 600;
-			margin: 0 0 28px;
-			max-width: 14ch;
-		}
-		.hero h1 .accent {
-			font-family: var(--font-serif);
-			font-style: italic;
-			font-weight: 400;
-			color: var(--purple-soft);
-			letter-spacing: -0.01em;
-		}
-		.hero-lede {
-			font-size: 20px;
-			line-height: 1.5;
-			color: var(--text-soft);
-			max-width: 56ch;
-			margin: 0 0 40px;
-		}
-		.hero-lede strong { color: var(--text); font-weight: 500; }
-
-		.cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-		.btn {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			padding: 14px 22px;
-			border-radius: 12px;
-			font-family: var(--font-sans);
-			font-size: 15px;
-			font-weight: 500;
-			letter-spacing: -0.005em;
-			cursor: pointer;
-			border: 0;
-			transition: transform .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
-		}
-		.btn-primary {
-			background: var(--text);
-			color: var(--ink-0);
-			box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px -12px rgba(244,241,250,0.3);
-		}
-		.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 16px 40px -12px rgba(244,241,250,0.4); }
-		.btn-ghost {
-			background: rgba(255,255,255,0.04);
-			color: var(--text);
-			border: 1px solid var(--line-strong);
-		}
-		.btn-ghost:hover { background: rgba(255,255,255,0.08); }
-		.btn .arrow { transition: transform .2s var(--ease); }
-		.btn:hover .arrow { transform: translateX(3px); }
-
-		/* ---------- Hero meta strip ---------- */
-		.hero-meta {
-			margin-top: 80px;
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 0;
-			border-top: 1px solid var(--line);
-			border-bottom: 1px solid var(--line);
-		}
-		.hero-meta > div {
-			padding: 24px 0;
-			border-right: 1px solid var(--line);
-		}
-		.hero-meta > div:last-child { border-right: 0; }
-		.hero-meta > div:not(:first-child) { padding-left: 24px; }
-		.meta-label {
-			font-family: var(--font-mono);
-			font-size: 11px;
-			text-transform: uppercase;
-			letter-spacing: 0.12em;
-			color: var(--text-mute);
-			margin-bottom: 8px;
-		}
-		.meta-value { font-size: 16px; color: var(--text); font-weight: 500; }
-		@media (max-width: 720px) {
-			.hero-meta { grid-template-columns: 1fr 1fr; }
-			.hero-meta > div:nth-child(2) { border-right: 0; }
-			.hero-meta > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-		}
-
-		/* ---------- Section header ---------- */
-		.section { padding: 120px 0; }
-		.section-head {
-			display: flex;
-			align-items: end;
-			justify-content: space-between;
-			gap: 40px;
-			margin-bottom: 56px;
-			flex-wrap: wrap;
-		}
-		.section-tag {
-			font-family: var(--font-mono);
-			font-size: 12px;
-			text-transform: uppercase;
-			letter-spacing: 0.18em;
-			color: var(--purple-soft);
-			margin: 0 0 14px;
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-		}
-		.section-tag::before {
-			content: ""; width: 24px; height: 1px; background: var(--purple-soft);
-		}
-		.section h2 {
-			font-size: clamp(36px, 5vw, 56px);
-			line-height: 1.02;
-			letter-spacing: -0.03em;
-			font-weight: 500;
-			margin: 0;
-			max-width: 18ch;
-		}
-		.section h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--purple-soft); }
-		.section-sub {
-			max-width: 36ch;
-			color: var(--text-soft);
-			font-size: 16px;
-			line-height: 1.55;
-			margin: 0;
-		}
-
-		/* ---------- Expertise grid ---------- */
-		.expertise-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 16px;
-		}
-		@media (max-width: 880px) { .expertise-grid { grid-template-columns: 1fr; } }
-		.exp-card {
-			padding: 32px 28px 30px;
-			background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			position: relative;
-			overflow: hidden;
-			transition: transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
-		}
-		.exp-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
-		.exp-card .ico {
-			width: 44px; height: 44px;
-			border-radius: 12px;
-			display: flex; align-items: center; justify-content: center;
-			background: rgba(140, 66, 255, 0.12);
-			border: 1px solid rgba(168, 126, 255, 0.25);
-			color: var(--purple-soft);
-			font-size: 18px;
-			margin-bottom: 22px;
-		}
-		.exp-card h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin: 0 0 10px; }
-		.exp-card p { font-size: 15px; line-height: 1.55; color: var(--text-soft); margin: 0; }
-		.exp-card .tag-row { margin-top: 18px; display: flex; gap: 6px; flex-wrap: wrap; }
-		.tag {
-			font-family: var(--font-mono);
-			font-size: 11px;
-			color: var(--text-mute);
-			padding: 3px 8px;
-			border: 1px solid var(--line);
-			border-radius: 6px;
-		}
-
-		/* ---------- Stack ---------- */
-		.stack {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 8px;
-			margin-top: 24px;
-		}
-		.stack-pill {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 8px 14px;
-			background: rgba(255,255,255,0.04);
-			border: 1px solid var(--line);
-			border-radius: 999px;
-			font-family: var(--font-mono);
-			font-size: 13px;
-			color: var(--text-soft);
-			transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
-		}
-		.stack-pill i { font-size: 14px; }
-		.stack-pill:hover { color: var(--text); background: rgba(255,255,255,0.07); border-color: var(--line-strong); }
-
-		/* ---------- Projects ---------- */
-		.projects-grid {
-			display: grid;
-			grid-template-columns: 1.2fr 1fr;
-			gap: 16px;
-		}
-		@media (max-width: 880px) { .projects-grid { grid-template-columns: 1fr; } }
-		.project {
-			display: flex;
-			flex-direction: column;
-			background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-			border: 1px solid var(--line);
-			border-radius: var(--rad-lg);
-			overflow: hidden;
-			transition: transform .3s var(--ease), border-color .3s var(--ease);
-		}
-		.project:hover { transform: translateY(-4px); border-color: var(--line-strong); }
-		.project-large { grid-row: span 2; }
-		.project-img {
-			position: relative;
-			aspect-ratio: 16 / 10;
-			overflow: hidden;
-			background: var(--ink-2);
-		}
-		.project-large .project-img { aspect-ratio: 16 / 11; }
-		.project-img img {
-			width: 100%; height: 100%;
-			object-fit: cover;
-			transition: transform .6s var(--ease);
-		}
-		.project:hover .project-img img { transform: scale(1.04); }
-		.project-img::after {
-			content: "";
-			position: absolute; inset: 0;
-			background: linear-gradient(180deg, transparent 60%, rgba(10, 6, 16, 0.7));
-		}
-		.project-body { padding: 26px 28px 30px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
-		.project-meta {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 16px;
-			font-family: var(--font-mono);
-			font-size: 12px;
-			color: var(--text-mute);
-			text-transform: uppercase;
-			letter-spacing: 0.1em;
-		}
-		.project-meta .year { color: var(--purple-soft); }
-		.project h3 { font-size: 24px; font-weight: 500; letter-spacing: -0.02em; margin: 0; }
-		.project-large h3 { font-size: 30px; }
-		.project p { font-size: 15px; line-height: 1.55; color: var(--text-soft); margin: 0; }
-		.project p strong { color: var(--text); font-weight: 500; }
-		.project .stack-pill { font-size: 12px; padding: 5px 10px; }
-		.project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
-		.project-link {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			font-family: var(--font-mono);
-			font-size: 13px;
-			color: var(--text);
-			padding-top: 6px;
-			transition: gap .2s var(--ease);
-		}
-		.project-link:hover { gap: 12px; color: var(--purple-soft); }
-
-		/* ---------- About / contact ---------- */
-		.about-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 56px;
-			align-items: start;
-		}
-		@media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
-
-		.about-body {
-			font-size: 19px;
-			line-height: 1.55;
-			color: var(--text-soft);
-			letter-spacing: -0.005em;
-		}
-		.about-body p { margin: 0 0 22px; }
-		.about-body p:last-child { margin: 0; }
-		.about-body strong { color: var(--text); font-weight: 500; }
-
-		.contact-card {
-			background: linear-gradient(180deg, rgba(168, 126, 255, 0.08), rgba(255,255,255,0.02));
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-lg);
-			padding: 36px 32px;
-			position: relative;
-			overflow: hidden;
-		}
-		.contact-card::before {
-			content: "";
-			position: absolute;
-			top: -100px; right: -100px;
-			width: 260px; height: 260px;
-			border-radius: 50%;
-			background: radial-gradient(circle, rgba(168, 126, 255, 0.35), transparent 60%);
-			pointer-events: none;
-		}
-		.contact-card h3 {
-			font-family: var(--font-serif);
-			font-style: italic;
-			font-weight: 400;
-			font-size: 32px;
-			letter-spacing: -0.02em;
-			margin: 0 0 12px;
-			color: var(--text);
-			position: relative;
-		}
-		.contact-card p { font-size: 15px; color: var(--text-soft); line-height: 1.5; margin: 0 0 26px; max-width: 36ch; position: relative; }
-
-		.contact-list { display: flex; flex-direction: column; gap: 10px; position: relative; }
-		.contact-item {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 16px 18px;
-			background: rgba(0,0,0,0.25);
-			border: 1px solid var(--line);
-			border-radius: 12px;
-			transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
-		}
-		.contact-item:hover { background: rgba(0,0,0,0.4); border-color: var(--line-strong); transform: translateY(-1px); }
-		.contact-item .left { display: flex; align-items: center; gap: 14px; }
-		.contact-item .ico {
-			width: 36px; height: 36px;
-			border-radius: 10px;
-			background: rgba(255,255,255,0.04);
-			display: flex; align-items: center; justify-content: center;
-			color: var(--purple-soft);
-			font-size: 14px;
-		}
-		.contact-item .label { font-size: 12px; color: var(--text-mute); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; }
-		.contact-item .value { font-size: 15px; color: var(--text); font-weight: 500; }
-		.contact-item .arrow { color: var(--text-mute); transition: transform .2s var(--ease), color .2s var(--ease); }
-		.contact-item:hover .arrow { transform: translate(2px, -2px); color: var(--text); }
-
-		/* ---------- Footer ---------- */
-		footer {
-			border-top: 1px solid var(--line);
-			padding: 36px 0 48px;
-			color: var(--text-mute);
-			font-size: 13px;
-			font-family: var(--font-mono);
-		}
-		footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
-		footer a:hover { color: var(--text); }
-		.footer-mark { color: var(--text); }
-
-		/* ---------- Achievements ---------- */
-		.nav-right { display: flex; align-items: center; gap: 8px; }
-		.trophy-btn {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 9px 14px;
-			border-radius: 999px;
-			background: rgba(255, 216, 107, 0.08);
-			border: 1px solid rgba(255, 216, 107, 0.25);
-			color: var(--gold);
-			font-family: var(--font-mono);
-			font-size: 12px;
-			cursor: pointer;
-			transition: background .2s var(--ease), transform .2s var(--ease);
-		}
-		.trophy-btn:hover { background: rgba(255, 216, 107, 0.16); transform: translateY(-1px); }
-		.trophy-btn.bump { animation: trophybump .5s var(--ease); }
-		@keyframes trophybump { 30% { transform: scale(1.18) rotate(-6deg); } }
-
-		.ach-panel {
-			position: fixed;
-			top: 78px;
-			right: max(16px, calc((100vw - var(--maxw) + 56px) / 2));
-			z-index: 60;
-			width: min(380px, calc(100vw - 32px));
-			max-height: min(560px, calc(100vh - 100px));
-			overflow-y: auto;
-			background: rgba(15, 9, 24, 0.92);
-			backdrop-filter: blur(24px) saturate(140%);
-			-webkit-backdrop-filter: blur(24px) saturate(140%);
-			border: 1px solid var(--line-strong);
-			border-radius: var(--rad-md);
-			padding: 20px;
-			box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
-		}
-		.ach-panel-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
-		.ach-panel-head strong { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
-		.ach-panel-head span { font-family: var(--font-mono); font-size: 12px; color: var(--text-mute); }
-		.ach-bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; margin-bottom: 16px; }
-		.ach-bar-fill { height: 100%; width: 100%; border-radius: 999px; background: var(--grad-accent); transform: scaleX(0); transform-origin: 0 50%; transition: transform .6s var(--ease); }
-		.ach-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-		.ach-item {
-			display: flex;
-			align-items: center;
-			gap: 12px;
-			padding: 10px 12px;
-			border: 1px solid var(--line);
-			border-radius: 10px;
-			background: rgba(255,255,255,0.02);
-		}
-		.ach-item .ach-ico {
-			width: 34px; height: 34px; flex: none;
-			border-radius: 9px;
-			display: flex; align-items: center; justify-content: center;
-			font-size: 14px;
-			background: rgba(255, 216, 107, 0.12);
-			border: 1px solid rgba(255, 216, 107, 0.3);
-			color: var(--gold);
-		}
-		.ach-item .ach-name { font-size: 14px; font-weight: 500; }
-		.ach-item .ach-desc { font-size: 12.5px; color: var(--text-mute); line-height: 1.4; }
-		.ach-item .ach-check { margin-left: auto; color: var(--cyan); font-size: 13px; flex: none; }
-		/* Locked entries stay readable: the lock icon and muted chip carry the "locked" signal, not faded text */
-		.ach-item.locked .ach-ico { background: rgba(255,255,255,0.04); border-color: var(--line); color: var(--text-mute); }
-		.ach-item.locked .ach-name { color: var(--text-soft); }
-
-		.toast-stack {
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			z-index: 80;
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-			pointer-events: none;
-		}
-		.toast {
-			display: flex;
-			align-items: center;
-			gap: 14px;
-			padding: 14px 20px 14px 14px;
-			border-radius: var(--rad-md);
-			background: rgba(23, 16, 36, 0.95);
-			border: 1px solid rgba(255, 216, 107, 0.35);
-			box-shadow: 0 16px 48px -12px rgba(0,0,0,0.8), 0 0 24px -8px rgba(255, 216, 107, 0.4);
-			animation: toastin .5s var(--ease);
-		}
-		.toast.out { animation: toastout .4s var(--ease) forwards; }
-		@keyframes toastin { from { opacity: 0; transform: translateY(16px) scale(0.96); } }
-		@keyframes toastout { to { opacity: 0; transform: translateY(8px) scale(0.97); } }
-		.toast .toast-ico {
-			width: 40px; height: 40px; flex: none;
-			border-radius: 11px;
-			display: flex; align-items: center; justify-content: center;
-			background: rgba(255, 216, 107, 0.15);
-			border: 1px solid rgba(255, 216, 107, 0.4);
-			color: var(--gold);
-			font-size: 16px;
-		}
-		.toast .toast-kicker { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold); }
-		.toast .toast-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
-
-		.brand-mark.spin { animation: markspin .5s var(--ease); }
-		@keyframes markspin { to { transform: rotate(360deg); } }
-
-		#confetti-canvas { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
-
-		@media (max-width: 540px) {
-			.toast-stack { left: 16px; right: 16px; bottom: 16px; }
-			.trophy-btn span { display: none; }
-		}
-
-		/* ---------- Reveal animation ---------- */
-		/* Content is visible by default; the hidden start state only applies when JS is running */
-		.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-		.js .reveal.in { opacity: 1; transform: translateY(0); }
-
-		@media (max-width: 540px) {
-			.section { padding: 84px 0; }
-			.hero { padding: 80px 0 60px; }
-			.hero-meta { margin-top: 56px; }
-			.cta-row .btn { flex: 1; justify-content: center; }
-		}
-
-		/* ---------- Reduced motion ---------- */
-		@media (prefers-reduced-motion: reduce) {
-			*, *::before, *::after {
-				animation-duration: 0.01ms !important;
-				animation-iteration-count: 1 !important;
-				transition-duration: 0.01ms !important;
-				scroll-behavior: auto !important;
-			}
-			.js .reveal { opacity: 1; transform: none; }
-		}
-	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <header class="nav">
-	<a class="brand" href="#top">
-		<div class="brand-mark">JM</div>
-		<span>Jorge Martinez</span>
-	</a>
-	<nav class="nav-links">
-		<a href="#work">Work</a>
-		<a href="#expertise">Expertise</a>
-		<a href="#about">About</a>
-		<a href="#contact">Contact</a>
-	</nav>
-	<div class="nav-right">
-		<button class="trophy-btn" id="trophyBtn" aria-expanded="false" aria-controls="achPanel" title="Achievements">
-			<i class="fa-solid fa-trophy" aria-hidden="true"></i>
-			<span id="trophyCount">0/7</span>
-		</button>
-		<a class="nav-cta" href="#contact">
-			Get in touch
-			<i class="fa-solid fa-arrow-right" style="font-size:11px" aria-hidden="true"></i>
+	<div class="nav-inner">
+		<a class="brand" href="#top">
+			<span class="brand-mark" aria-hidden="true">JM</span>
+			<span>Jorge Martinez</span>
 		</a>
-		<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-			<i class="fa-solid fa-bars" aria-hidden="true"></i>
-		</button>
+		<div class="nav-right">
+			<nav class="nav-links" aria-label="Sections">
+				<a href="#work">Work</a>
+				<a href="#about">About</a>
+				<a href="#contact">Contact</a>
+			</nav>
+			<a class="nav-cta" href="#contact">Get in touch</a>
+			<button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+			</button>
+		</div>
 	</div>
 </header>
 
-<nav class="mobile-menu" id="mobileMenu" aria-label="Site sections" hidden>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Sections" hidden>
 	<a href="#work">Work</a>
-	<a href="#expertise">Expertise</a>
 	<a href="#about">About</a>
 	<a href="#contact">Contact</a>
 </nav>
 
-<div class="ach-panel" id="achPanel" role="dialog" aria-label="Achievements" hidden>
-	<div class="ach-panel-head">
-		<strong><i class="fa-solid fa-trophy" style="color:var(--gold); margin-right:8px; font-size:13px"></i>Achievements</strong>
-		<span id="achProgressText">0 of 7</span>
-	</div>
-	<div class="ach-bar"><div class="ach-bar-fill" id="achBarFill"></div></div>
-	<ul class="ach-list" id="achList"></ul>
-</div>
+<main id="main">
 
-<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+	<section id="top" class="hero">
+		<div class="container">
+			<h1>Software developer and computer hardware enthusiast.</h1>
+			<p class="hero-lede">
+				I'm a second-year Computer Systems student at <strong>Saskatchewan Polytechnic</strong>,
+				building web apps, troubleshooting real machines, and shipping projects I'm proud of.
+			</p>
+			<div class="cta-row">
+				<a class="btn btn-primary" href="#work">
+					View selected work
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+				</a>
+				<a class="btn btn-ghost" href="mailto:jorgemartinezux@gmail.com">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+					jorgemartinezux@gmail.com
+				</a>
+			</div>
 
-<!-- ============ HERO ============ -->
-<section id="top" class="hero">
-	<div class="container">
-		<div class="hero-eyebrow">Open to junior roles · Saskatoon, SK, CA</div>
-		<h1>Software <span class="accent">developer</span> &amp; computer hardware enthusiast.</h1>
-		<p class="hero-lede">
-			I'm a second-year Computer Systems student at <strong>Saskatchewan Polytechnic</strong>,
-			building web apps, troubleshooting real machines, and shipping projects I'm proud of.
-			Let's make something useful.
-		</p>
-		<div class="cta-row">
-			<a class="btn btn-primary" href="#work">
-				View selected work
-				<i class="fa-solid fa-arrow-right arrow" style="font-size:12px"></i>
-			</a>
-			<a class="btn btn-ghost" href="mailto:jorgemartinezux@gmail.com">
-				<i class="fa-solid fa-envelope" style="font-size:13px"></i>
-				<span>jorgemartinezux@gmail.com</span>
-			</a>
-		</div>
-
-		<div class="hero-meta">
-			<div>
-				<div class="meta-label">Focus</div>
-				<div class="meta-value">Full-stack &amp; IT support</div>
-			</div>
-			<div>
-				<div class="meta-label">Available</div>
-				<div class="meta-value">Spring 2026</div>
-			</div>
-			<div>
-				<div class="meta-label">Location</div>
-				<div class="meta-value">Saskatoon, SK</div>
-			</div>
-			<div>
-				<div class="meta-label">Stack</div>
-				<div class="meta-value">Python · JS · C# · Java</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- ============ EXPERTISE ============ -->
-<section id="expertise" class="section">
-	<div class="container">
-		<div class="section-head reveal">
-			<div>
-				<div class="section-tag">What I do</div>
-				<h2>Three things I do <em>well.</em></h2>
-			</div>
-			<p class="section-sub">From the keyboard to the case — building software, supporting users, and keeping hardware healthy.</p>
-		</div>
-		<div class="expertise-grid">
-
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-code"></i></div>
-				<h3>Software development</h3>
-				<p>Full-stack web apps with FastAPI, Next.js and React. Comfortable across Python, JavaScript, Java and C#.</p>
-				<div class="tag-row">
-					<span class="tag">FastAPI</span>
-					<span class="tag">Next.js</span>
-					<span class="tag">REST</span>
+			<div class="hero-meta">
+				<div>
+					<div class="meta-label">Focus</div>
+					<div class="meta-value">Full-stack &amp; IT support</div>
 				</div>
-			</article>
-
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-headset"></i></div>
-				<h3>IT support</h3>
-				<p>Hands-on diagnosis, configuration, and end-user assistance across hardware, software, and network problems.</p>
-				<div class="tag-row">
-					<span class="tag">Windows</span>
-					<span class="tag">Networking</span>
-					<span class="tag">Tickets</span>
+				<div>
+					<div class="meta-label">Location</div>
+					<div class="meta-value">Saskatoon, SK</div>
 				</div>
-			</article>
-
-			<article class="exp-card reveal">
-				<div class="ico"><i class="fa-solid fa-microchip"></i></div>
-				<h3>Hardware troubleshooting</h3>
-				<p>Builds, repairs, and component-level diagnosis. The kind of student who actually enjoys cracking the case open.</p>
-				<div class="tag-row">
-					<span class="tag">Builds</span>
-					<span class="tag">Diagnostics</span>
-					<span class="tag">Repair</span>
+				<div>
+					<div class="meta-label">Stack</div>
+					<div class="meta-value">Python, JS, C#, Java</div>
 				</div>
-			</article>
-
-		</div>
-	</div>
-</section>
-
-<!-- ============ WORK ============ -->
-<section id="work" class="section" style="padding-top:40px">
-	<div class="container">
-		<div class="section-head reveal">
-			<div>
-				<div class="section-tag">Selected work</div>
-				<h2>A few things I've <em>shipped.</em></h2>
 			</div>
-			<p class="section-sub">Group projects, solo builds, and the occasional weekend rabbit hole. Click through for the source.</p>
 		</div>
+	</section>
 
-		<div class="projects-grid">
+	<section id="work" class="section">
+		<div class="container">
+			<div class="section-head">
+				<h2>Selected work</h2>
+				<p class="section-sub">Group projects, solo builds, and the occasional weekend rabbit hole.</p>
+			</div>
 
-			<a href="#" class="project project-large reveal">
-				<div class="project-img"><img src="assets/projects/lockanddoor.webp" alt="Prestige Lock and Door" loading="lazy" decoding="async"></div>
-				<div class="project-body">
-					<div class="project-meta">
-						<span class="year">2025 · Group project</span>
-						<span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+			<div class="projects-grid">
+
+				<a href="#" class="project">
+					<div class="project-img"><img src="assets/projects/lockanddoor.webp" alt="Prestige Lock &amp; Door document dashboard" loading="lazy" decoding="async"></div>
+					<div class="project-body">
+						<div class="project-meta">
+							<span>2025</span>
+							<span aria-hidden="true">/</span>
+							<span>Five-person agile team</span>
+						</div>
+						<h3>Prestige Lock &amp; Door</h3>
+						<p>A web application that scans PDF documents with AI and surfaces their contents back to the team, turning paperwork into <strong>actionable business decisions</strong>.</p>
+						<p>I implemented JWT-based authentication, audit logging, and role-aware event tracking on the FastAPI backend, then designed paginated, filterable MUI tables on the Next.js frontend. Also wrote the Cypress end-to-end tests, using strict attribute and structural selectors so they survive UI changes.</p>
+						<div class="project-stack">
+							<span class="stack-pill">Python</span>
+							<span class="stack-pill">FastAPI</span>
+							<span class="stack-pill">Next.js</span>
+							<span class="stack-pill">AI / OCR</span>
+							<span class="stack-pill">Cypress</span>
+						</div>
 					</div>
-					<h3>Prestige Lock &amp; Door</h3>
-					<p>A web application that scans PDF documents with AI and surfaces their contents back to the team — turning paperwork into <strong>actionable business decisions</strong>.<br><br>
-						Implemented JWT-based authentication, audit logging, and role-aware event tracking on the FastAPI backend.<br><br>
-						Designed paginated, filterable MUI tables on the Next.js frontend; resolved several pagination bugs by tracing root causes through filter, slice, and state-reset logic.<br><br>
-						Wrote Cypress end-to-end tests using strict attribute and structural selectors for resilience against UI changes.<br><br>
-						Collaborated in a five-person agile team — owning frontend/backend integration work, code review, and authentication-related logging.<br>
-					</p>
-					<div class="project-stack">
+				</a>
+
+				<a href="genshin-build-guide.html" class="project">
+					<div class="project-img"><img src="assets/projects/genshinproject.webp" alt="Genshin Build Guide character browser" loading="lazy" decoding="async"></div>
+					<div class="project-body">
+						<div class="project-meta">
+							<span>2024</span>
+							<span aria-hidden="true">/</span>
+							<span>With Chris Udey</span>
+						</div>
+						<h3>Genshin Build Guide</h3>
+						<p>A full-stack CRUD app where players write and share character build guides, with image uploads, an approval workflow, and JWT authentication. Built with <strong>FastAPI</strong> and <strong>Next.js</strong>.</p>
+						<div class="project-stack">
+							<span class="stack-pill">FastAPI</span>
+							<span class="stack-pill">Next.js</span>
+							<span class="stack-pill">SQLite</span>
+						</div>
+						<span class="project-link">
+							Read the case study
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+						</span>
+					</div>
+				</a>
+
+				<a href="math-card-games.html" class="project">
+					<div class="project-img"><img src="assets/projects/cardgame.webp" alt="Game Hub card game menu" loading="lazy" decoding="async"></div>
+					<div class="project-body">
+						<div class="project-meta">
+							<span>2025</span>
+							<span aria-hidden="true">/</span>
+							<span>COSA 195</span>
+						</div>
+						<h3>Math card games for kids</h3>
+						<p>A game hub built around <strong>Twenty Total</strong> and <strong>Memory Match</strong>, with math question popups, player accounts, and a credit shop. Written in vanilla JavaScript with no frontend framework.</p>
+						<div class="project-stack">
+							<span class="stack-pill">JavaScript</span>
+							<span class="stack-pill">Vite</span>
+							<span class="stack-pill">Cypress</span>
+						</div>
+						<span class="project-link">
+							Read the case study
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+						</span>
+					</div>
+				</a>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="about" class="section">
+		<div class="container">
+			<div class="section-head">
+				<h2>About</h2>
+			</div>
+			<div class="about-grid">
+				<div class="about-body">
+					<p>I came to software through hardware. Years of building PCs and fixing other people's machines turned into a real curiosity about the code running on them, and that's where my focus landed.</p>
+					<p>Creating software is the part I love most: a stubborn bug turning into a small, clean function, a janky UI finally landing on something obvious. I want to do that for a living.</p>
+					<p>Outside of class I still help friends and family with builds, repairs, and the occasional "why won't this turn on", and I keep a running list of small projects for the weekends.</p>
+					<div class="stack" style="margin-top:28px">
 						<span class="stack-pill">Python</span>
-						<span class="stack-pill">AI / OCR</span>
-						<span class="stack-pill">React</span>
-					</div>
-				</div>
-			</a>
-
-			<a href="genshin-build-guide.html" class="project reveal">
-				<div class="project-img"><img src="assets/projects/genshinproject.webp" alt="Genshin Impact build guide creator" loading="lazy" decoding="async"></div>
-				<div class="project-body">
-					<div class="project-meta">
-						<span class="year">2024 · With Chris Udey</span>
-						<span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-					</div>
-					<h3>Genshin Build Guide</h3>
-					<p>Front and back end with Python <strong>FastAPI</strong> and <strong>Next.js</strong> — a full CRUD app for character build guides.</p>
-					<div class="project-stack">
-						<span class="stack-pill">FastAPI</span>
-						<span class="stack-pill">Next.js</span>
-						<span class="stack-pill">CRUD</span>
-					</div>
-					<span class="project-link">Read the case study <i class="fa-solid fa-arrow-right"></i></span>
-				</div>
-			</a>
-
-			<a href="math-card-games.html" class="project reveal">
-				<div class="project-img"><img src="assets/projects/cardgame.webp" alt="Card Game Website" loading="lazy" decoding="async"></div>
-				<div class="project-body">
-					<div class="project-meta">
-						<span class="year">2025 · COSA 195</span>
-						<span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-					</div>
-					<h3>Math card games for kids</h3>
-					<p>A game site featuring <strong>Twenty Total</strong> and <strong>Memory</strong> — making math fun and rewarding successful runs with points.</p>
-					<div class="project-stack">
 						<span class="stack-pill">JavaScript</span>
-						<span class="stack-pill">HTML</span>
-						<span class="stack-pill">CSS</span>
+						<span class="stack-pill">TypeScript</span>
+						<span class="stack-pill">Java</span>
+						<span class="stack-pill">C#</span>
+						<span class="stack-pill">React / Next.js</span>
+						<span class="stack-pill">FastAPI</span>
+						<span class="stack-pill">SQL</span>
+						<span class="stack-pill">Cypress</span>
+						<span class="stack-pill">Git</span>
 					</div>
-					<span class="project-link">Read the case study <i class="fa-solid fa-arrow-right"></i></span>
 				</div>
-			</a>
 
-		</div>
-	</div>
-</section>
+				<aside id="contact" class="contact-card">
+					<h3>Let's work together</h3>
+					<p>I'm open to junior developer and IT support roles, contract work, and student co-op placements.</p>
 
-<!-- ============ ABOUT ============ -->
-<section id="about" class="section">
-	<div class="container">
-		<div class="section-head reveal" style="margin-bottom:36px">
-			<div>
-				<div class="section-tag">About</div>
-				<h2>A bit about <em>me.</em></h2>
+					<div class="contact-list">
+						<a class="contact-item" href="mailto:jorgemartinezux@gmail.com">
+							<span class="left">
+								<span class="ico">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+								</span>
+								<span>
+									<span class="label">Email</span>
+									<span class="value">jorgemartinezux@gmail.com</span>
+								</span>
+							</span>
+							<svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+						</a>
+						<a class="contact-item" href="https://github.com/martinez-ux" target="_blank" rel="noopener">
+							<span class="left">
+								<span class="ico">
+									<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+								</span>
+								<span>
+									<span class="label">GitHub</span>
+									<span class="value">@martinez-ux</span>
+								</span>
+							</span>
+							<svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg>
+						</a>
+						<a class="contact-item" href="https://linkedin.com/in/jorge-martinez-lopez-7025b9409" target="_blank" rel="noopener">
+							<span class="left">
+								<span class="ico">
+									<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.6 5.3H.7V15h2.9V5.3ZM2.15 1A1.68 1.68 0 0 0 .4 2.66c0 .92.75 1.67 1.68 1.67h.02c1.04 0 1.68-.75 1.68-1.67A1.68 1.68 0 0 0 2.15 1ZM15.3 9.44c0-2.7-1.44-3.96-3.37-3.96-1.55 0-2.25.86-2.63 1.46V5.3H6.4c.04.82 0 9.7 0 9.7h2.9V9.58c0-.26.02-.52.1-.7.2-.52.68-1.06 1.48-1.06 1.05 0 1.47.8 1.47 1.96V15h2.9V9.44Z"/></svg>
+								</span>
+								<span>
+									<span class="label">LinkedIn</span>
+									<span class="value">Jorge Martinez Lopez</span>
+								</span>
+							</span>
+							<svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M17 14v5H5V7h5"/></svg>
+						</a>
+					</div>
+				</aside>
 			</div>
 		</div>
-		<div class="about-grid">
-			<div class="about-body reveal">
-				<p>I'm Jorge — a second-year Computer Systems student at Saskatchewan Polytechnic, and a long-time computer hardware enthusiast.</p>
-				<p>Creating software is my passion. I like the part of the work where a stubborn bug turns into a small, clean function; where a janky UI lands on something obvious. I want to do that for a living.</p>
-				<p>Outside of class I help friends and family with <strong>builds, repairs, and "why is this not working"</strong> — and I keep a side-list of small projects to chip away at on weekends.</p>
-				<div class="stack" style="margin-top:32px">
-					<span class="stack-pill"><i class="fa-brands fa-python"></i> Python</span>
-					<span class="stack-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
-					<span class="stack-pill"><i class="fa-brands fa-java"></i> Java</span>
-					<span class="stack-pill"><i class="fa-solid fa-hashtag"></i> C#</span>
-					<span class="stack-pill"><i class="fa-brands fa-html5"></i> HTML</span>
-					<span class="stack-pill"><i class="fa-brands fa-css3-alt"></i> CSS</span>
-					<span class="stack-pill"><i class="fa-brands fa-react"></i> React / Next.js</span>
-					<span class="stack-pill"><i class="fa-solid fa-bolt"></i> FastAPI</span>
-					<span class="stack-pill"><i class="fa-solid fa-database"></i> SQL</span>
-				</div>
-			</div>
+	</section>
 
-			<aside id="contact" class="contact-card reveal">
-				<h3>Let's work together.</h3>
-				<p>I'm open to junior developer and IT support roles, contract work, and student co-op placements.</p>
-
-				<div class="contact-list">
-					<a class="contact-item" href="mailto:jorgemartinezux@gmail.com">
-						<div class="left">
-							<div class="ico"><i class="fa-solid fa-envelope"></i></div>
-							<div>
-								<div class="label">Email</div>
-								<div class="value">jorgemartinezux@gmail.com</div>
-							</div>
-						</div>
-						<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
-					</a>
-					<a class="contact-item" href="https://github.com/martinez-ux" target="_blank" rel="noopener">
-						<div class="left">
-							<div class="ico"><i class="fa-brands fa-github"></i></div>
-							<div>
-								<div class="label">GitHub</div>
-								<div class="value">@martinez-ux</div>
-							</div>
-						</div>
-						<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
-					</a>
-					<a class="contact-item" href="https://linkedin.com/in/jorge-martinez-lopez-7025b9409">
-						<div class="left">
-							<div class="ico"><i class="fa-brands fa-linkedin-in"></i></div>
-							<div>
-								<div class="label">LinkedIn</div>
-								<div class="value">Jorge Martinez Lopez</div>
-							</div>
-						</div>
-						<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
-					</a>
-				</div>
-			</aside>
-		</div>
-	</div>
-</section>
+</main>
 
 <footer>
 	<div class="container">
-		<div><span class="footer-mark">© 2026 Jorge Martinez.</span> &nbsp;Built in Saskatoon.</div>
-		<div>v2.1 · last updated 06/2026</div>
+		<div><span class="footer-mark">&copy; 2026 Jorge Martinez.</span> Built in Saskatoon</div>
+		<div>Updated June 2026</div>
 	</div>
 </footer>
 
 <script>
-	// Reveal-on-scroll — if IntersectionObserver is unavailable, show everything immediately
-	if ('IntersectionObserver' in window) {
-		const io = new IntersectionObserver((entries) => {
-			entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-		}, { threshold: 0.12 });
-		document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-	} else {
-		document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-	}
+	// Mobile menu toggle. The only script on the page.
+	(function () {
+		var btn = document.getElementById('menuBtn');
+		var menu = document.getElementById('mobileMenu');
 
-	// Mobile menu
-	const menuBtn = document.getElementById('menuBtn');
-	const mobileMenu = document.getElementById('mobileMenu');
-	menuBtn.addEventListener('click', (e) => {
-		e.stopPropagation();
-		mobileMenu.hidden = !mobileMenu.hidden;
-		menuBtn.setAttribute('aria-expanded', String(!mobileMenu.hidden));
-	});
-	mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-		mobileMenu.hidden = true;
-		menuBtn.setAttribute('aria-expanded', 'false');
-	}));
-	document.addEventListener('click', (e) => {
-		if (!mobileMenu.hidden && !mobileMenu.contains(e.target)) {
-			mobileMenu.hidden = true;
-			menuBtn.setAttribute('aria-expanded', 'false');
+		function close() {
+			menu.hidden = true;
+			btn.setAttribute('aria-expanded', 'false');
 		}
-	});
-	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { mobileMenu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
 
-	// ---------- Achievements ----------
-	const ACHIEVEMENTS = {
-		arrival:  { icon: 'fa-hand-peace', name: 'Hello, World',  desc: 'You showed up. Every program starts somewhere.',     hint: 'Just show up.' },
-		explorer: { icon: 'fa-map',        name: 'Completionist', desc: 'Explored every section of the site.',                hint: 'See everything there is to see.' },
-		speedrun: { icon: 'fa-stopwatch',  name: 'Speedrunner',   desc: 'Top to bottom in under 12 seconds. Any%.',           hint: 'Gotta go fast.' },
-		nightowl: { icon: 'fa-moon',       name: 'Night Owl',     desc: 'Browsing after hours. Respect.',                     hint: 'Some things only unlock after dark.' },
-		masher:   { icon: 'fa-fire',       name: 'Button Masher', desc: 'Gave the logo five good spins.',                     hint: 'That logo in the corner looks clickable…' },
-		social:   { icon: 'fa-handshake',  name: 'Networker',     desc: 'Reached out. Looking forward to hearing from you!',  hint: 'Say hello.' },
-		konami:   { icon: 'fa-gamepad',    name: '↑↑↓↓←→←→BA', desc: 'You know the code. GG.', hint: '30 extra lives, on the house.' }
-	};
-	const ACH_KEY = 'jm-achievements';
-	const ACH_TOTAL = Object.keys(ACHIEVEMENTS).length;
-	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	let unlocked = new Set();
-	try { unlocked = new Set(JSON.parse(localStorage.getItem(ACH_KEY)) || []); } catch (e) {}
-
-	const trophyBtn = document.getElementById('trophyBtn');
-	const trophyCount = document.getElementById('trophyCount');
-	const achPanel = document.getElementById('achPanel');
-	const achList = document.getElementById('achList');
-	const achBarFill = document.getElementById('achBarFill');
-	const achProgressText = document.getElementById('achProgressText');
-	const toastStack = document.getElementById('toastStack');
-
-	function renderAchievements() {
-		trophyCount.textContent = unlocked.size + '/' + ACH_TOTAL;
-		achProgressText.textContent = unlocked.size + ' of ' + ACH_TOTAL;
-		achBarFill.style.transform = 'scaleX(' + (unlocked.size / ACH_TOTAL) + ')';
-		achList.innerHTML = Object.entries(ACHIEVEMENTS).map(([id, a]) => {
-			const got = unlocked.has(id);
-			return '<li class="ach-item ' + (got ? '' : 'locked') + '">'
-					+ '<div class="ach-ico"><i class="fa-solid ' + (got ? a.icon : 'fa-lock') + '"></i></div>'
-					+ '<div><div class="ach-name">' + a.name + '</div><div class="ach-desc">' + (got ? a.desc : a.hint) + '</div></div>'
-					+ (got ? '<i class="fa-solid fa-circle-check ach-check"></i>' : '')
-					+ '</li>';
-		}).join('');
-	}
-
-	function showToast(a) {
-		const el = document.createElement('div');
-		el.className = 'toast';
-		el.innerHTML = '<div class="toast-ico"><i class="fa-solid ' + a.icon + '"></i></div>'
-				+ '<div><div class="toast-kicker">Achievement unlocked</div><div class="toast-name">' + a.name + '</div></div>';
-		toastStack.appendChild(el);
-		setTimeout(() => {
-			el.classList.add('out');
-			el.addEventListener('animationend', () => el.remove());
-		}, 4200);
-	}
-
-	function unlock(id) {
-		if (unlocked.has(id)) return;
-		unlocked.add(id);
-		try { localStorage.setItem(ACH_KEY, JSON.stringify([...unlocked])); } catch (e) {}
-		renderAchievements();
-		trophyBtn.classList.remove('bump'); void trophyBtn.offsetWidth; trophyBtn.classList.add('bump');
-		showToast(ACHIEVEMENTS[id]);
-	}
-
-	trophyBtn.addEventListener('click', (e) => {
-		e.stopPropagation();
-		achPanel.hidden = !achPanel.hidden;
-		trophyBtn.setAttribute('aria-expanded', String(!achPanel.hidden));
-	});
-	document.addEventListener('click', (e) => {
-		if (!achPanel.hidden && !achPanel.contains(e.target)) {
-			achPanel.hidden = true;
-			trophyBtn.setAttribute('aria-expanded', 'false');
-		}
-	});
-	document.addEventListener('keydown', (e) => { if (e.key === 'Escape') achPanel.hidden = true; });
-	renderAchievements();
-
-	// Hello, World — just for showing up
-	setTimeout(() => unlock('arrival'), 2000);
-
-	// Night Owl — 10pm to 5am local time
-	const hour = new Date().getHours();
-	if (hour >= 22 || hour < 5) setTimeout(() => unlock('nightowl'), 3800);
-
-	// Completionist + Speedrunner — watch every section plus the footer
-	const watched = ['expertise', 'work', 'about'].map(id => document.getElementById(id)).concat([document.querySelector('footer')]);
-	const seen = new Set();
-	const sectionIO = new IntersectionObserver((entries) => {
-		entries.forEach(en => {
-			if (!en.isIntersecting) return;
-			seen.add(en.target);
-			sectionIO.unobserve(en.target);
-			if (en.target.tagName === 'FOOTER' && performance.now() < 12000) unlock('speedrun');
-			if (seen.size === watched.length) unlock('explorer');
+		btn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			menu.hidden = !menu.hidden;
+			btn.setAttribute('aria-expanded', String(!menu.hidden));
 		});
-	}, { threshold: 0.15 });
-	watched.forEach(el => sectionIO.observe(el));
 
-	// Button Masher — spin the logo
-	const brandMark = document.querySelector('.brand-mark');
-	let mashes = 0;
-	document.querySelector('.brand').addEventListener('click', () => {
-		brandMark.classList.remove('spin'); void brandMark.offsetWidth; brandMark.classList.add('spin');
-		if (++mashes >= 5) unlock('masher');
-	});
+		menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
 
-	// Networker — any contact link
-	document.querySelectorAll('.contact-item').forEach(el => el.addEventListener('click', () => unlock('social')));
+		document.addEventListener('click', function (e) {
+			if (!menu.hidden && !menu.contains(e.target)) close();
+		});
 
-	// Konami code
-	const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-	let kpos = 0;
-	document.addEventListener('keydown', (e) => {
-		const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-		kpos = (k === KONAMI[kpos]) ? kpos + 1 : (k === KONAMI[0] ? 1 : 0);
-		if (kpos === KONAMI.length) {
-			kpos = 0;
-			confetti();
-			unlock('konami');
-		}
-	});
-
-	function confetti() {
-		if (reducedMotion || document.getElementById('confetti-canvas')) return;
-		const canvas = document.createElement('canvas');
-		canvas.id = 'confetti-canvas';
-		document.body.appendChild(canvas);
-		canvas.width = innerWidth;
-		canvas.height = innerHeight;
-		const ctx = canvas.getContext('2d');
-		const colors = ['#A855F7', '#EC4899', '#FFD86B', '#30D5C8', '#F4F1FA'];
-		const bits = Array.from({ length: 160 }, () => ({
-			x: Math.random() * canvas.width,
-			y: -20 - Math.random() * canvas.height * 0.5,
-			w: 5 + Math.random() * 6,
-			h: 8 + Math.random() * 8,
-			vx: -1.5 + Math.random() * 3,
-			vy: 2.5 + Math.random() * 3.5,
-			rot: Math.random() * Math.PI,
-			vr: -0.15 + Math.random() * 0.3,
-			color: colors[(Math.random() * colors.length) | 0]
-		}));
-		const t0 = performance.now();
-		(function frame(t) {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			bits.forEach(b => {
-				b.x += b.vx; b.y += b.vy; b.rot += b.vr;
-				ctx.save();
-				ctx.translate(b.x, b.y);
-				ctx.rotate(b.rot);
-				ctx.fillStyle = b.color;
-				ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
-				ctx.restore();
-			});
-			if (t - t0 < 5000) requestAnimationFrame(frame);
-			else canvas.remove();
-		})(t0);
-	}
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && !menu.hidden) { close(); btn.focus(); }
+		});
+	})();
 </script>
 </body>
 </html>
